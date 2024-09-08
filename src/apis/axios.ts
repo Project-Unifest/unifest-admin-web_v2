@@ -20,6 +20,17 @@ interface APIResponse<T> {
 
 export const axiosClient = axios.create({
 	baseURL: import.meta.env.VITE_REACT_APP_API_ROOT,
+	headers: {
+		'Content-Type': 'application/json',
+	},
+});
+
+export const axiosAuthClient = axios.create({
+	baseURL: import.meta.env.VITE_REACT_APP_API_ROOT,
+	headers: {
+		'Content-Type': 'application/json',
+		Authorization: localStorage.getItem('accessToken'),
+	},
 });
 
 export const getData = async <T>(

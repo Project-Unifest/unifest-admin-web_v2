@@ -1,16 +1,24 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '@/styles/LoginPage.css';
-import { postLogin } from '@/apis/loginAPI';
+import '../styles/LoginPage.css';
+import { postLogin } from '../apis/loginAPI';
+import { access } from 'fs';
 
 const LoginPage = () => {
-	const [accessToken, setAccessToken] = useState('');
-	const [refreshToken, setRefreshToken] = useState('');
+	const [accessToken, setAccessToken] = useState<string>('');
+	const [refreshToken, setRefreshToken] = useState<string>('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [isOK, setIsOK] = useState(false);
 	const navigator = useNavigate();
 
-	useEffect(() => {});
+	useEffect(() => {
+		if (isOK === true && accessToken !== '') {
+			localStorage.setItem('accessToken', accessToken);
+			localStorage.setItem('refreshToken', refreshToken);
+			navigator('/');
+		}
+	}, [accessToken, isOK]);
 	const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		console.log(typeof event);
 		setEmail(event.target.value);
@@ -27,22 +35,18 @@ const LoginPage = () => {
 				email: email,
 				pw: password,
 			}).then((res) => {
-				if (res) {
+				if (res.status === 200) {
+					setIsOK(true);
+
 					setAccessToken(res.headers.authorization);
 					setRefreshToken(res.headers.refreshtoken);
 				}
-				console.log(res);
 			});
 		} catch (error) {
 			console.error('Login error:', error);
 		}
-
-		//TODO 로그인 성공 시에만 네비게이트
-		navigator('/');
 	};
-	const onClickHandler = () => {
-		localStorage.setItem('accessToken', '1234');
-	};
+	const onClickHandler = () => {};
 	return (
 		<div style={{ display: 'flex', justifyContent: 'center', height: '100%' }}>
 			<div className="LoginDiv" style={{ width: '580px' }}>

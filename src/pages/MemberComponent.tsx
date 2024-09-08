@@ -1,0 +1,84 @@
+import '../styles/MemberComponent.style.css';
+
+const MemberComponent = ({
+	id,
+	email,
+	phoneNum,
+	bgColor,
+	setPage,
+	hrEnable,
+}: {
+	id: string;
+	email: string;
+	phoneNum: string;
+	bgColor: string | number | undefined;
+	setPage: Function;
+	hrEnable: boolean;
+}) => {
+	return (
+		<div>
+			<div
+				style={{
+					display: 'flex',
+					justifyContent: 'center',
+					flexDirection: 'column',
+				}}
+			>
+				<div>{hrEnable ? <hr style={{}} /> : <div />}</div>
+				<div
+					onClick={(e) => setPage(e, id, email, phoneNum)}
+					style={{
+						display: 'flex',
+						justifyContent: 'space-between',
+						alignItems: 'center',
+						background: bgColor,
+						borderRadius: '10px',
+					}}
+				>
+					<div>
+						<div className="uidLabel">UID</div>
+						<div className="uid">{id}</div>
+					</div>
+					<div style={{ width: '320px' }}>
+						<div style={{ display: 'flex' }}>
+							<div className="labelDiv">이메일</div>
+							<div className="contentDiv">{email}</div>
+						</div>
+						<div style={{ display: 'flex' }}>
+							<div className="labelDiv">전화번호</div>
+							<div className="contentDiv">{phoneNum}</div>
+						</div>
+					</div>
+					<div style={{ display: 'flex' }}>
+						<div className="btnDiv">
+							<div
+								className="circleDiv"
+								style={{ backgroundColor: '#9C9C9C' }}
+							/>
+							<button>대기</button>
+						</div>
+						<div className="btnDiv">
+							<div
+								className="circleDiv"
+								style={{ backgroundColor: '#15D055' }}
+							/>
+							<button>승인</button>
+						</div>
+						<div className="btnDiv">
+							<div
+								className="circleDiv"
+								style={{ backgroundColor: '#FF5252' }}
+							/>
+							<button>거부</button>
+						</div>
+						<div className="btnDiv2">
+							<button>관리</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+};
+
+export default MemberComponent;
