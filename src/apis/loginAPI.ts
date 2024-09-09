@@ -1,4 +1,4 @@
-import { Axios, AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { axiosClient } from './axios';
 
 interface LoginData {

@@ -106,3 +106,13 @@
   font-weight: 600;
   line-height: normal;
 }
+
+.status {
+  color: #000;
+  text-align: center;
+  font-family: "Noto Sans KR";
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}

@@ -1,20 +1,57 @@
+import { patchMember } from '@/apis/membersApi';
 import '../styles/MemberComponent.style.css';
 
 const MemberComponent = ({
 	id,
 	email,
 	phoneNum,
-	bgColor,
-	setPage,
-	hrEnable,
+	role,
+	fetchMembers,
 }: {
 	id: string;
 	email: string;
 	phoneNum: string;
-	bgColor: string | number | undefined;
-	setPage: Function;
-	hrEnable: boolean;
+	role: string;
+	fetchMembers: Function;
 }) => {
+	const GreenUID = () => {
+		return (
+			<>
+				<div className="uid" style={{ background: '#15D055' }}>
+					{id}
+				</div>
+				<div className="status">승인</div>
+			</>
+		);
+	};
+	const RedUID = () => {
+		return (
+			<>
+				<div className="uid" style={{ background: '#FF5252' }}>
+					{id}
+				</div>
+				<div className="status">거부</div>
+			</>
+		);
+	};
+	const GrayUID = () => {
+		return (
+			<>
+				<div className="uid" style={{ background: '#9C9C9C' }}>
+					{id}
+				</div>
+				<div className="status">대기</div>
+			</>
+		);
+	};
+
+	const changeRoleHandler = (value: string) => {
+		//value => value of the pressed button
+		const response = patchMember(id, value).then(() => {
+			fetchMembers();
+		});
+	};
+
 	return (
 		<div>
 			<div
@@ -24,20 +61,29 @@ const MemberComponent = ({
 					flexDirection: 'column',
 				}}
 			>
-				<div>{hrEnable ? <hr style={{}} /> : <div />}</div>
+				<div>
+					<hr style={{}} />
+				</div>
 				<div
-					onClick={(e) => setPage(e, id, email, phoneNum)}
 					style={{
 						display: 'flex',
 						justifyContent: 'space-between',
 						alignItems: 'center',
-						background: bgColor,
+						background: '#fff',
 						borderRadius: '10px',
 					}}
 				>
 					<div>
 						<div className="uidLabel">UID</div>
-						<div className="uid">{id}</div>
+						{
+							{
+								ADMIN: <GreenUID />,
+								VERIFIED: <GreenUID />,
+								DENIED: <RedUID />,
+								PENDING: <GrayUID />,
+							}[role]
+						}
+						{/* <div className="uid">{id}</div> */}
 					</div>
 					<div style={{ width: '320px' }}>
 						<div style={{ display: 'flex' }}>
@@ -55,21 +101,39 @@ const MemberComponent = ({
 								className="circleDiv"
 								style={{ backgroundColor: '#9C9C9C' }}
 							/>
-							<button>대기</button>
+							<button
+								onClick={() => {
+									changeRoleHandler('PENDING');
+								}}
+							>
+								대기
+							</button>
 						</div>
 						<div className="btnDiv">
 							<div
 								className="circleDiv"
 								style={{ backgroundColor: '#15D055' }}
 							/>
-							<button>승인</button>
+							<button
+								onClick={() => {
+									changeRoleHandler('VERIFIED');
+								}}
+							>
+								승인
+							</button>
 						</div>
 						<div className="btnDiv">
 							<div
 								className="circleDiv"
 								style={{ backgroundColor: '#FF5252' }}
 							/>
-							<button>거부</button>
+							<button
+								onClick={() => {
+									changeRoleHandler('DENIED');
+								}}
+							>
+								거부
+							</button>
 						</div>
 						<div className="btnDiv2">
 							<button>관리</button>

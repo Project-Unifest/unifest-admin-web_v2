@@ -14,36 +14,72 @@ const MemberManage = () => {
 	const [loading, setLoading] = useState(true);
 	const [page, setPage] = useState(true); //true = Member false = Booth
 	const [memberList, setMemberList] = useState<Member[]>();
+	const [pendingCnt, setPendingCnt] = useState<number>(0);
+	const [verifiedCnt, setVerifiedCnt] = useState<number>(0);
+	const [denyCnt, setDenyCnt] = useState<number>(0);
 
 	useEffect(() => {
-		console.log(memberList);
+		fetchMembers();
+	}, [selectedRole]);
+	useEffect(() => {
+		initCount();
 	}, [memberList]);
 	useEffect(() => {
 		fetchMembers();
 	}, []);
+
 	const [focus, setFocus] = useState({
 		uid: 't',
 		email: 't',
 		phoneNum: 't',
 	});
-	const [focusUID, setUID] = useState('');
-	const [focusEmail, setEmail] = useState('');
-	const [focusPhoneNum, setPhoneNum] = useState('');
 
 	const fetchMembers = () => {
-		let _role = selectedRole;
-		if (_role === 'All') {
-			_role = '';
-		}
-		if (_role !== undefined) {
-			const response = getMembers(_role).then((res) => {
+		if (selectedRole !== undefined) {
+			setLoading(true);
+			const response = getMembers(selectedRole).then((res) => {
 				setMemberList(res.data.data);
+				setLoading(false);
 			});
 		}
 	};
+
+	const initCount = () => {
+		setPendingCnt(0);
+		setVerifiedCnt(0);
+		setDenyCnt(0);
+
+		countNumbers();
+	};
+
+	const addPendingCnt = () => {
+		setPendingCnt((pendingCnt) => pendingCnt + 1);
+	};
+	const addVerifiedCnt = () => {
+		setVerifiedCnt((verifiedCnt) => verifiedCnt + 1);
+	};
+	const addDenyCnt = () => {
+		setDenyCnt((denyCnt) => denyCnt + 1);
+	};
+	const countNumbers = () => {
+		memberList?.forEach((value) => {
+			switch (value.memberRole.toLowerCase()) {
+				case 'pending':
+					addPendingCnt();
+					break;
+				case 'admin':
+				case 'verified':
+					addVerifiedCnt();
+					break;
+				case 'denied':
+					addDenyCnt();
+					break;
+			}
+		});
+	};
+
 	const handleRoleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		setSelectedRole(event.target.value);
-		fetchMembers();
 	};
 
 	const handleUserClick = (uid: string, email: string, phoneNum: string) => {
@@ -63,76 +99,50 @@ const MemberManage = () => {
 	return (
 		<div>
 			<Header onLogout={handleLogout} />
-			{page ? (
-				<div>
-					<HeaderText school="건국대학교" title="운영자 계정 관리"></HeaderText>
-					<div className="roleBar">
-						<div className="roleDiv">
-							<div className="roleLeftDiv">전체 신청 수</div>
-							<div className="roleRightDiv1">
-								32
-								{/* 향후 숫자로 수정 */}
-							</div>
-						</div>
-						<div className="roleDiv">
-							<div className="roleLeftDiv">전체 신청 수</div>
-							<div className="roleRightDiv2">
-								32
-								{/* 향후 숫자로 수정 */}
-							</div>
-						</div>
-						<div className="roleDiv">
-							<div className="roleLeftDiv">전체 신청 수</div>
-							<div className="roleRightDiv3">
-								32
-								{/* 향후 숫자로 수정 */}
-							</div>
-						</div>
-						<div className="roleDiv">
-							<div className="roleLeftDiv">전체 신청 수</div>
-							<div className="roleRightDiv4">
-								32
-								{/* 향후 숫자로 수정 */}
-							</div>
-						</div>
+			<div>
+				<HeaderText school="건국대학교" title="운영자 계정 관리"></HeaderText>
+				<div className="roleBar">
+					<div className="roleDiv">
+						<div className="roleLeftDiv">전체 신청 수</div>
+						<div className="roleRightDiv1">{memberList?.length}</div>
 					</div>
-					<div className="selectDiv">
-						<label className="filterLabel" htmlFor="role">
-							필터
-						</label>
-						<select
-							className="filterSelect"
-							id="role"
-							value={selectedRole}
-							onChange={handleRoleChange}
-						>
-							<option value="">All</option>
-							<option value="ADMIN">Admin</option>
-							<option value="PENDING">Pending</option>
-							<option value="VERIFIED">Verified</option>
-							<option value="DENIED">Denied</option>
-						</select>
-						<MemberTable
-							role={selectedRole}
-							setter={setLoading}
-							loading={loading}
-							setPage={handleUserClick}
-							members={memberList}
-						/>
+					<div className="roleDiv">
+						<div className="roleLeftDiv">신청 대기</div>
+						<div className="roleRightDiv2">{pendingCnt}</div>
+					</div>
+					<div className="roleDiv">
+						<div className="roleLeftDiv">신청 승인</div>
+						<div className="roleRightDiv3">{verifiedCnt}</div>
+					</div>
+					<div className="roleDiv">
+						<div className="roleLeftDiv">신청 거부</div>
+						<div className="roleRightDiv4">{denyCnt}</div>
 					</div>
 				</div>
-			) : (
-				<div></div>
-				// <route path="/booths">
-				// 	<div>
-				// 		<BoothManage
-				// 			id={focus['uid']}
-				// 			email={focus['email']}
-				// 			phoneNum={focus['phoneNum']}
-				// 		></BoothManage>
-				// 	</div>
-				// </route>
-			)}
+				<div className="selectDiv">
+					<label className="filterLabel" htmlFor="role">
+						필터
+					</label>
+					<select
+						className="filterSelect"
+						id="role"
+						value={selectedRole}
+						onChange={handleRoleChange}
+					>
+						<option value="">All</option>
+						<option value="ADMIN">Admin</option>
+						<option value="PENDING">Pending</option>
+						<option value="VERIFIED">Verified</option>
+						<option value="DENIED">Denied</option>
+					</select>
+					<MemberTable
+						loading={loading}
+						setPage={handleUserClick}
+						members={memberList}
+						fetchMembers={fetchMembers}
+					/>
+				</div>
+			</div>
 		</div>
 	);
 };
