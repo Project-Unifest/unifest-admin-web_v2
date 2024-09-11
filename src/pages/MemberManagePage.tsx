@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import MemberTable from './MemberTable';
-import HeaderText from '../Components/HeaderText';
+import MemberTable from '@/pages/MemberTable';
+import HeaderText from '@/components/HeaderText';
 
-import '../styles/MemberManagePage.css';
-import Header from '../Components/LogoBar';
+import '@/styles/MemberManagePage.css';
+import Header from '@/components/LogoBar';
 import { useNavigate } from 'react-router-dom';
 import { getMembers } from '@/apis/membersApi';
 import { Member } from '@/interfaces/interfaces';

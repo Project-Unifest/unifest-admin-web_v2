@@ -47,7 +47,7 @@ const MemberComponent = ({
 
 	const changeRoleHandler = (value: string) => {
 		//value => value of the pressed button
-		const response = patchMember(id, value).then(() => {
+		patchMember(id, value).then(() => {
 			fetchMembers();
 		});
 	};
@@ -96,44 +96,41 @@ const MemberComponent = ({
 						</div>
 					</div>
 					<div style={{ display: 'flex' }}>
-						<div className="btnDiv">
+						<div
+							className="btnDiv"
+							onClick={() => {
+								changeRoleHandler('PENDING');
+							}}
+						>
 							<div
 								className="circleDiv"
 								style={{ backgroundColor: '#9C9C9C' }}
 							/>
-							<button
-								onClick={() => {
-									changeRoleHandler('PENDING');
-								}}
-							>
-								대기
-							</button>
+							<button>대기</button>
 						</div>
-						<div className="btnDiv">
+						<div
+							className="btnDiv"
+							onClick={() => {
+								changeRoleHandler('VERIFIED');
+							}}
+						>
 							<div
 								className="circleDiv"
 								style={{ backgroundColor: '#15D055' }}
 							/>
-							<button
-								onClick={() => {
-									changeRoleHandler('VERIFIED');
-								}}
-							>
-								승인
-							</button>
+							<button>승인</button>
 						</div>
-						<div className="btnDiv">
+						<div
+							className="btnDiv"
+							onClick={() => {
+								changeRoleHandler('DENIED');
+							}}
+						>
 							<div
 								className="circleDiv"
 								style={{ backgroundColor: '#FF5252' }}
 							/>
-							<button
-								onClick={() => {
-									changeRoleHandler('DENIED');
-								}}
-							>
-								거부
-							</button>
+							<button>거부</button>
 						</div>
 						<div className="btnDiv2">
 							<button>관리</button>
