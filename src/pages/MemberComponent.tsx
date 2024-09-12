@@ -74,9 +74,7 @@ const MemberComponent = ({
 					flexDirection: 'column',
 				}}
 			>
-				<div>
-					{hrEnable || hrEnable === undefined ? <hr style={{}} /> : <></>}
-				</div>
+				<div>{hrEnable || hrEnable === undefined ? <hr /> : <></>}</div>
 				<div
 					style={{
 						display: 'flex',
