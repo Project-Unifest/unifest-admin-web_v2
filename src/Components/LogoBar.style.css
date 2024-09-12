@@ -1,11 +1,10 @@
 .HeaderDiv {
   display: flex;
-  margin: 65px 0px 0px 140px;
+  margin: 65px 0px 0px 0px;
 }
 .logoutBtn {
   width: 120px;
   margin-left: auto;
-  margin-right: 140px;
 
   border-radius: 10px;
   border: none;

@@ -1,5 +1,4 @@
 .roleBar{
-   margin: 0px 131px 0px 131px;
    display: flex;
    flex-direction: row;
 }
@@ -90,9 +89,6 @@
    align-items: center;
 }
 
-.selectDiv{
-   margin: 50px 131px 0px 131px;
-}
 
 .filterLabel{
    margin: 0px 14px 0px 0px;
