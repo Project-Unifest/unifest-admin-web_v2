@@ -1,7 +1,8 @@
 import './App.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
-import MemberManage from './pages/MemberManagePAge';
+import BoothManagePage from '@/pages/BoothManagePage';
+import MemberManage from '@/pages/MemberManagePage';
 
 function App() {
 	const router = createBrowserRouter([
@@ -12,6 +13,10 @@ function App() {
 		{
 			path: '/',
 			element: <MemberManage />,
+		},
+		{
+			path: '/booth/:memberId',
+			element: <BoothManagePage />,
 		},
 	]);
 

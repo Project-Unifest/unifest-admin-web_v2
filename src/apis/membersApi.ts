@@ -1,4 +1,3 @@
-import { AxiosResponse } from 'axios';
 import { axiosAuthClient } from './axios';
 
 export const getMembers = async (role: string) => {
@@ -10,7 +9,7 @@ export const getMembers = async (role: string) => {
 			},
 		);
 	} catch (error) {
-		throw new Error('로그인에 실패하였습니다');
+		throw new Error('GET /members ERROR');
 	}
 };
 
@@ -26,5 +25,15 @@ export const patchMember = async (memberId: string, role: string) => {
 		console.log('Role updated:', response.data);
 	} catch (error) {
 		console.error('Error updating role:', error);
+	}
+};
+
+export const getMember = async (id: string) => {
+	try {
+		return await axiosAuthClient.get(
+			`${import.meta.env.VITE_REACT_APP_API_ROOT}/members/${id}`,
+		);
+	} catch (error) {
+		throw new Error('로그인에 실패하였습니다');
 	}
 };

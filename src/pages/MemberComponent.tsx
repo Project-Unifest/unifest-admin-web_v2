@@ -1,5 +1,6 @@
 import { patchMember } from '@/apis/membersApi';
 import '../styles/MemberComponent.style.css';
+import { useNavigate } from 'react-router-dom';
 
 const MemberComponent = ({
 	id,
@@ -7,13 +8,16 @@ const MemberComponent = ({
 	phoneNum,
 	role,
 	fetchMembers,
+	hrEnable,
 }: {
 	id: string;
 	email: string;
 	phoneNum: string;
 	role: string;
-	fetchMembers: Function;
+	fetchMembers?: Function;
+	hrEnable?: boolean;
 }) => {
+	const navigator = useNavigate();
 	const GreenUID = () => {
 		return (
 			<>
@@ -46,10 +50,19 @@ const MemberComponent = ({
 	};
 
 	const changeRoleHandler = (value: string) => {
-		//value => value of the pressed button
-		patchMember(id, value).then(() => {
-			fetchMembers();
-		});
+		if (fetchMembers !== undefined) {
+			//value => value of the pressed button
+			console;
+			patchMember(id, value).then(() => {
+				fetchMembers();
+			});
+		} else {
+			patchMember(id, value);
+		}
+	};
+
+	const clickManageHandler = () => {
+		navigator(`/booth/${id}`);
 	};
 
 	return (
@@ -62,18 +75,17 @@ const MemberComponent = ({
 				}}
 			>
 				<div>
-					<hr style={{}} />
+					{hrEnable || hrEnable === undefined ? <hr style={{}} /> : <></>}
 				</div>
 				<div
 					style={{
 						display: 'flex',
 						justifyContent: 'space-between',
 						alignItems: 'center',
-						background: '#fff',
 						borderRadius: '10px',
 					}}
 				>
-					<div>
+					<div className="uidDiv">
 						<div className="uidLabel">UID</div>
 						{
 							{
@@ -132,9 +144,13 @@ const MemberComponent = ({
 							/>
 							<button>거부</button>
 						</div>
-						<div className="btnDiv2">
-							<button>관리</button>
-						</div>
+						{hrEnable || hrEnable === undefined ? (
+							<div className="btnDiv2" onClick={clickManageHandler}>
+								<button>관리</button>
+							</div>
+						) : (
+							<></>
+						)}
 					</div>
 				</div>
 			</div>
