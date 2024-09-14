@@ -37,9 +37,18 @@ const MemberManage = () => {
 	const fetchMembers = () => {
 		if (selectedRole !== undefined) {
 			setLoading(true);
-			const response = getMembers(selectedRole).then((res) => {
-				setMemberList(res.data.data);
-				setLoading(false);
+			getMembers(selectedRole).then((res) => {
+				if (typeof res !== 'number' && res !== undefined) {
+					setMemberList(res.data.data);
+					setLoading(false);
+				} else {
+					console.log(res);
+					switch (res) {
+						case 403:
+							// navigator('/login');
+							break;
+					}
+				}
 			});
 		}
 	};

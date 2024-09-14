@@ -1,6 +1,14 @@
+import axios, { AxiosError } from 'axios';
 import { axiosAuthClient } from './axios';
 
 export const getMembers = async (role: string) => {
+	axiosAuthClient.interceptors.request.use((config) => {
+		const accessToken = localStorage.getItem('accessToken');
+		if (accessToken) {
+			config.headers.Authorization = accessToken;
+		}
+		return config;
+	});
 	try {
 		return await axiosAuthClient.get(
 			`${import.meta.env.VITE_REACT_APP_API_ROOT}/members`,
@@ -9,6 +17,9 @@ export const getMembers = async (role: string) => {
 			},
 		);
 	} catch (error) {
+		if (axios.isAxiosError(error)) {
+			return error.response?.status;
+		}
 		throw new Error('GET /members ERROR');
 	}
 };
