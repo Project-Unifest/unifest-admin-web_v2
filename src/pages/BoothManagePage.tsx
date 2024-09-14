@@ -45,8 +45,10 @@ const BoothManagePage = () => {
 					hrEnable={false}
 				/>
 			</div>
-			<div className="searchDiv">
-				<div>검색</div>
+			<div className="searchContainer">
+				<div className="searchDiv">
+					<input className="inputSearch" type="text"></input>
+				</div>
 			</div>
 			<div className="boothListDiv">
 				<div>등록 부스 총 {boothList?.length}개</div>

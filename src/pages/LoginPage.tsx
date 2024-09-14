@@ -14,11 +14,10 @@ const LoginPage = () => {
 
 	useEffect(() => {
 		if (isOK === true && accessToken !== '') {
-			localStorage.setItem('accessToken', accessToken);
-			localStorage.setItem('refreshToken', refreshToken);
+			console.log(accessToken);
 			navigator('/');
 		}
-	}, [accessToken, isOK]);
+	}, [isOK]);
 	const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		console.log(typeof event);
 		setEmail(event.target.value);
@@ -31,13 +30,15 @@ const LoginPage = () => {
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		try {
+			setIsOK(false);
 			const response = postLogin({
 				email: email,
 				pw: password,
 			}).then((res) => {
 				if (res.status === 200) {
 					setIsOK(true);
-
+					localStorage.setItem('accessToken', res.headers.authorization);
+					localStorage.setItem('refreshToken', res.headers.refreshtoken);
 					setAccessToken(res.headers.authorization);
 					setRefreshToken(res.headers.refreshtoken);
 				}
@@ -46,7 +47,6 @@ const LoginPage = () => {
 			console.error('Login error:', error);
 		}
 	};
-	const onClickHandler = () => {};
 	return (
 		<div style={{ display: 'flex', justifyContent: 'center', height: '100vh' }}>
 			<div className="LoginDiv" style={{ width: '580px' }}>
