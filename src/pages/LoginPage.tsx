@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/LoginPage.css';
 import { postLogin } from '../apis/loginAPI';
-import { access } from 'fs';
 
 const LoginPage = () => {
 	const [accessToken, setAccessToken] = useState<string>('');
@@ -15,6 +14,7 @@ const LoginPage = () => {
 	useEffect(() => {
 		if (isOK === true && accessToken !== '') {
 			console.log(accessToken);
+			console.log(refreshToken);
 			navigator('/');
 		}
 	}, [isOK]);
@@ -31,7 +31,7 @@ const LoginPage = () => {
 		event.preventDefault();
 		try {
 			setIsOK(false);
-			const response = postLogin({
+			postLogin({
 				email: email,
 				pw: password,
 			}).then((res) => {

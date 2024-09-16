@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { axiosAuthClient } from './axios';
 
 export const getMembers = async (role: string) => {

@@ -1,23 +1,17 @@
-import axios from 'axios';
-import { useState, useEffect } from 'react';
 import MemberComponent from './MemberComponent';
 import '../styles/MemberTable.css';
 import { Member } from '@/interfaces/interfaces';
 
 const MemberTable = ({
 	loading,
-	setPage,
 	members,
 	fetchMembers,
 }: {
 	loading: boolean;
-	setPage: Function;
 	members: Member[] | undefined;
 	fetchMembers: Function;
 }) => {
 	//const [members, setMembers] = useState([]);
-	const [selectedMembers, setSelectedMembers] = useState([]);
-	const [newRole, setNewRole] = useState('');
 
 	if (loading) {
 		return (
@@ -40,7 +34,7 @@ const MemberTable = ({
 
 	return (
 		<div>
-			{members.map((value, index) => {
+			{members.map((value) => {
 				return (
 					<MemberComponent
 						key={value.id}

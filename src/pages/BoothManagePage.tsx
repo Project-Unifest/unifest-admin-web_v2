@@ -1,6 +1,6 @@
 import HeaderText from '@/components/HeaderText';
 import MemberComponent from './MemberComponent';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import '@/styles/BoothManagePage.css';
 import { useEffect, useState } from 'react';
 import { getMember } from '@/apis/membersApi';
