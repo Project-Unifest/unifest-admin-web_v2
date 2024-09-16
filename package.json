@@ -1,6 +1,6 @@
 {
   "name": "unifest-admin-web",
-  "homepage": "https://project-unifest.github.io/",
+  
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -12,6 +12,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
+  "homepage": "https://https://project-unifest.github.io/unifest-admin-web_v2/",
   "dependencies": {
     "@types/node": "^22.5.4",
     "@typescript-eslint/eslint-plugin": "^8.4.0",
