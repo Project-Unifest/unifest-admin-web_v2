@@ -10,7 +10,6 @@ const BoothComponent = ({ data }: { data: Booth }) => {
 					<div className="boothName">{data.name}</div>
 					<div className="boothDesc">{data.description}</div>
 
-					<div>ddd</div>
 					<div className="boothLocation">{data.location}</div>
 				</div>
 			</div>

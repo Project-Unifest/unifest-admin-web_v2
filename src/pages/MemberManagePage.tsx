@@ -7,6 +7,7 @@ import Header from '@/components/LogoBar';
 import { useNavigate } from 'react-router-dom';
 import { getMembers } from '@/apis/membersApi';
 import { Member } from '@/interfaces/interfaces';
+import searchIcon from '@/assets/search.svg';
 
 const MemberManage = () => {
 	const navigator = useNavigate();
@@ -14,19 +15,38 @@ const MemberManage = () => {
 	const [loading, setLoading] = useState(true);
 	const [page, setPage] = useState(true); //true = Member false = Booth
 	const [memberList, setMemberList] = useState<Member[]>();
+	const [searchList, setSearchList] = useState<Member[]>();
 	const [pendingCnt, setPendingCnt] = useState<number>(0);
 	const [verifiedCnt, setVerifiedCnt] = useState<number>(0);
 	const [denyCnt, setDenyCnt] = useState<number>(0);
+	const [search, setSearch] = useState<string>();
 
 	useEffect(() => {
 		fetchMembers();
 	}, [selectedRole]);
 	useEffect(() => {
+		setSearchList(memberList);
 		initCount();
 	}, [memberList]);
 	useEffect(() => {
 		fetchMembers();
 	}, []);
+	useEffect(() => {
+		if (search !== undefined) {
+			setSearchList(
+				memberList?.filter((value) => {
+					if (
+						value.email.toLowerCase().includes(search?.toLowerCase()) ||
+						value.phoneNum.toLowerCase().includes(search?.toLowerCase())
+					) {
+						return true;
+					} else {
+						return false;
+					}
+				}),
+			);
+		}
+	}, [search]);
 
 	const [focus, setFocus] = useState({
 		uid: 't',
@@ -91,6 +111,10 @@ const MemberManage = () => {
 		setSelectedRole(event.target.value);
 	};
 
+	const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setSearch(e.target.value);
+	};
+
 	const handleUserClick = (uid: string, email: string, phoneNum: string) => {
 		setFocus({
 			uid: uid,
@@ -129,25 +153,44 @@ const MemberManage = () => {
 					</div>
 				</div>
 				<div className="selectDiv">
-					<label className="filterLabel" htmlFor="role">
-						필터
-					</label>
-					<select
-						className="filterSelect"
-						id="role"
-						value={selectedRole}
-						onChange={handleRoleChange}
-					>
-						<option value="">All</option>
-						<option value="ADMIN">Admin</option>
-						<option value="PENDING">Pending</option>
-						<option value="VERIFIED">Verified</option>
-						<option value="DENIED">Denied</option>
-					</select>
+					<div>
+						<div className="searchContainer">
+							<div>
+								<label className="filterLabel" htmlFor="role">
+									필터
+								</label>
+								<select
+									className="filterSelect"
+									id="role"
+									value={selectedRole}
+									onChange={handleRoleChange}
+								>
+									<option value="">All</option>
+									<option value="ADMIN">Admin</option>
+									<option value="PENDING">Pending</option>
+									<option value="VERIFIED">Verified</option>
+									<option value="DENIED">Denied</option>
+								</select>
+							</div>
+
+							<div className="searchDiv">
+								<input
+									className="inputSearch"
+									type="text"
+									placeholder="검색하기"
+									value={search}
+									onChange={onSearchChange}
+								></input>
+								<div style={{ marginRight: '10px' }}>
+									<img src={searchIcon} width="24px" height="24px"></img>
+								</div>
+							</div>
+						</div>
+					</div>
 					<MemberTable
 						loading={loading}
 						setPage={handleUserClick}
-						members={memberList}
+						members={searchList}
 						fetchMembers={fetchMembers}
 					/>
 				</div>

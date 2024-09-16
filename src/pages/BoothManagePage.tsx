@@ -6,15 +6,16 @@ import { useEffect, useState } from 'react';
 import { getMember } from '@/apis/membersApi';
 import BoothComponent from '@/components/BoothComponent';
 import { Booth } from '@/interfaces/interfaces';
+import searchIcon from '@/assets/search.svg';
 
 const BoothManagePage = () => {
 	const id = useParams().memberId;
-	const [boothList, setBoothList] = useState<Booth[]>();
 
 	if (id === undefined) {
 		return <div>404 PAGE</div>;
 	}
 
+	const [boothList, setBoothList] = useState<Booth[]>();
 	const [email, setEmail] = useState<string>('');
 	const [phoneNum, setPhoneNum] = useState<string>('');
 	const [role, setRole] = useState<string>('');
@@ -44,11 +45,6 @@ const BoothManagePage = () => {
 					role={role}
 					hrEnable={false}
 				/>
-			</div>
-			<div className="searchContainer">
-				<div className="searchDiv">
-					<input className="inputSearch" type="text"></input>
-				</div>
 			</div>
 			<div className="boothListDiv">
 				<div>등록 부스 총 {boothList?.length}개</div>

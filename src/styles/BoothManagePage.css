@@ -5,17 +5,25 @@
 }
 
 .searchDiv{
-   width: 300px;
-   margin:50px 0px 10px auto;
-   padding: 12px 20px 12px 20px;
    border-radius: 67px;
    border: 1px solid #BABABA;
+
+   display: flex;
+   flex-direction: row;
+   align-items: center;
 }
 .searchContainer{
-   width: 100%;
+   
+   margin: 50px 0px 10px 0px;
    display: flex;
+   justify-content: space-between;
+   align-items:baseline;
 }
 
 .inputSearch{
    border:none;
+   margin: 12px 20px 12px 20px;
+   height: 30px;
+   width: 300px;
+   outline: none;
 }
