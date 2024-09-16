@@ -1,32 +1,26 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  redirect,
-  useNavigate,
-} from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
-import React from "react";
-import ReactDOM from "react-dom";
-import MainPage from "./pages/MainPage";
-import axios from "axios";
+import './App.css';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import BoothManagePage from '@/pages/BoothManagePage';
+import MemberManage from '@/pages/MemberManagePage';
 
 function App() {
-  const router = createBrowserRouter([
-    {
-      path: "/login",
-      element: <LoginPage />,
-    },
-    {
-      path: "/",
-      element: <MainPage />,
-    },
-  ]);
+	const router = createBrowserRouter([
+		{
+			path: '/login',
+			element: <LoginPage />,
+		},
+		{
+			path: '/',
+			element: <MemberManage />,
+		},
+		{
+			path: '/booth/:memberId',
+			element: <BoothManagePage />,
+		},
+	]);
 
-  return <RouterProvider router={router} />;
+	return <RouterProvider router={router} />;
 }
 
 export default App;

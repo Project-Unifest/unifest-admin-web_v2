@@ -1,0 +1,29 @@
+.memberInfoDiv{
+   border-radius: 10px;
+   background: #EBEBEB;
+   padding: 30px 50px 30px 40px;   
+}
+
+.searchDiv{
+   border-radius: 67px;
+   border: 1px solid #BABABA;
+
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+}
+.searchContainer{
+   
+   margin: 50px 0px 10px 0px;
+   display: flex;
+   justify-content: space-between;
+   align-items:baseline;
+}
+
+.inputSearch{
+   border:none;
+   margin: 12px 20px 12px 20px;
+   height: 30px;
+   width: 300px;
+   outline: none;
+}
