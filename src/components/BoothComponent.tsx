@@ -9,7 +9,6 @@ const BoothComponent = ({ data }: { data: Booth }) => {
 				<div className="columnFlexDiv">
 					<div className="boothName">{data.name}</div>
 					<div className="boothDesc">{data.description}</div>
-
 					<div className="boothLocation">{data.location}</div>
 				</div>
 			</div>
