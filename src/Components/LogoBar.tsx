@@ -6,10 +6,6 @@ interface LogoProps {
 	onLogout: Function;
 }
 const Header = (props: LogoProps) => {
-	const handleClick = () => {
-		props.onLogout();
-	};
-
 	const navigator = useNavigate();
 	const onClick = () => {
 		navigator('/');
@@ -20,7 +16,6 @@ const Header = (props: LogoProps) => {
 			<button
 				className="logoutBtn"
 				onClick={() => {
-					console.log(props);
 					props.onLogout();
 				}}
 			>

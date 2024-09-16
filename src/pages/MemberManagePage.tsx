@@ -13,7 +13,6 @@ const MemberManage = () => {
 	const navigator = useNavigate();
 	const [selectedRole, setSelectedRole] = useState<string | undefined>('');
 	const [loading, setLoading] = useState(true);
-	const [page, setPage] = useState(true); //true = Member false = Booth
 	const [memberList, setMemberList] = useState<Member[]>();
 	const [searchList, setSearchList] = useState<Member[]>();
 	const [pendingCnt, setPendingCnt] = useState<number>(0);
@@ -47,12 +46,6 @@ const MemberManage = () => {
 			);
 		}
 	}, [search]);
-
-	const [focus, setFocus] = useState({
-		uid: 't',
-		email: 't',
-		phoneNum: 't',
-	});
 
 	const fetchMembers = () => {
 		if (selectedRole !== undefined) {
@@ -115,14 +108,6 @@ const MemberManage = () => {
 		setSearch(e.target.value);
 	};
 
-	const handleUserClick = (uid: string, email: string, phoneNum: string) => {
-		setFocus({
-			uid: uid,
-			email: email,
-			phoneNum: phoneNum,
-		});
-		setPage(false);
-	};
 	const handleLogout = () => {
 		localStorage.removeItem('accessToken');
 		localStorage.removeItem('refreshToken');
@@ -189,7 +174,6 @@ const MemberManage = () => {
 					</div>
 					<MemberTable
 						loading={loading}
-						setPage={handleUserClick}
 						members={searchList}
 						fetchMembers={fetchMembers}
 					/>
