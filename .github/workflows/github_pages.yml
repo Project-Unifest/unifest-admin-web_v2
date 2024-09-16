@@ -38,7 +38,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-        
+      # env 파일 생성 후 backend url 넣어주기
+      - name: Generate env file
+        run: |
+          touch .env
+          echo "VITE_REACT_APP_API_ROOT=$VITE_API_BACK_URL" >> .env
+        env:
+          VITE_API_BACK_URL: ${{ secrets.VITE_API_BACK_URL }}
       - name: Build
         run: npm run build
         
