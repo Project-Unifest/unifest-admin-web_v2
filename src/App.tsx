@@ -1,8 +1,8 @@
-import './App.css';
+import '@/App.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import LoginPage from './pages/LoginPage';
-import BoothManagePage from './pages/BoothManagePage';
-import MemberManage from './pages/MemberManagePage';
+import LoginPage from '@/pages/LoginPage';
+import BoothManagePage from '@/pages/BoothManagePage';
+import MemberManage from '@/pages/MemberManagePage';
 import { basename } from 'path';
 
 function App() {
