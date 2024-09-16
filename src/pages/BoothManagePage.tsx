@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import { getMember } from '@/apis/membersApi';
 import BoothComponent from '@/components/BoothComponent';
 import { Booth } from '@/interfaces/interfaces';
-import searchIcon from '@/assets/search.svg';
 
 const BoothManagePage = () => {
 	const id = useParams().memberId;
