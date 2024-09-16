@@ -1,18 +1,16 @@
 {
   "name": "unifest-admin-web",
-  
+  "homepage": "https://https://project-unifest.github.io/unifest-admin-web_v2",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite --port 3000",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "preview": "vite preview"
   },
-  "homepage": "https://https://project-unifest.github.io/unifest-admin-web_v2",
+  
   "dependencies": {
     "@types/node": "^22.5.4",
     "@typescript-eslint/eslint-plugin": "^8.4.0",
