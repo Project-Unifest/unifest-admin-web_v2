@@ -10,6 +10,9 @@ import { Member } from '@/interfaces/interfaces';
 import searchIcon from '@/assets/search.svg';
 
 const MemberManage = () => {
+	//when user visit site first time.
+	let flag = false;
+
 	const navigator = useNavigate();
 	const [selectedRole, setSelectedRole] = useState<string | undefined>('');
 	const [loading, setLoading] = useState(true);
@@ -21,7 +24,11 @@ const MemberManage = () => {
 	const [search, setSearch] = useState<string>();
 
 	useEffect(() => {
-		fetchMembers();
+		if (flag === false) {
+			flag = true;
+		} else {
+			fetchMembers();
+		}
 	}, [selectedRole]);
 	useEffect(() => {
 		setSearchList(memberList);
@@ -55,10 +62,10 @@ const MemberManage = () => {
 					setMemberList(res.data.data);
 					setLoading(false);
 				} else {
-					console.log(res);
 					switch (res) {
 						case 403:
-							// navigator('/login');
+							alert('총학 관리자 계정으로 로그인해야 접속이 가능합니다');
+							navigator('/login');
 							break;
 					}
 				}

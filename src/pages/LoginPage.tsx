@@ -13,8 +13,8 @@ const LoginPage = () => {
 
 	useEffect(() => {
 		if (isOK === true && accessToken !== '') {
-			console.log(accessToken);
-			console.log(refreshToken);
+			//to escape from error
+			refreshToken;
 			navigator('/');
 		}
 	}, [isOK]);
@@ -36,11 +36,12 @@ const LoginPage = () => {
 				pw: password,
 			}).then((res) => {
 				if (res.status === 200) {
-					setIsOK(true);
 					localStorage.setItem('accessToken', res.headers.authorization);
 					localStorage.setItem('refreshToken', res.headers.refreshtoken);
 					setAccessToken(res.headers.authorization);
 					setRefreshToken(res.headers.refreshtoken);
+
+					setIsOK(true);
 				}
 			});
 		} catch (error) {
