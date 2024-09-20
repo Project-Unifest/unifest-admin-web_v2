@@ -10,6 +10,7 @@ const MemberComponent = ({
 	fetchMembers,
 	hrEnable,
 	schoolId,
+	isOwnerChangePage,
 }: {
 	id: string;
 	email: string;
@@ -18,6 +19,7 @@ const MemberComponent = ({
 	fetchMembers?: Function;
 	hrEnable?: boolean;
 	schoolId?: number;
+	isOwnerChangePage: boolean;
 }) => {
 	const navigator = useNavigate();
 	const GreenUID = () => {
@@ -60,6 +62,10 @@ const MemberComponent = ({
 		} else {
 			patchMember(id, value);
 		}
+	};
+	const clickChangeOwnerHandler = () => {
+		alert('Unimplemented!');
+		navigator(`/`);
 	};
 
 	const clickManageHandler = () => {
@@ -106,51 +112,57 @@ const MemberComponent = ({
 							<div className="contentDiv">{phoneNum}</div>
 						</div>
 					</div>
-					<div style={{ display: 'flex' }}>
-						<div
-							className="btnDiv"
-							onClick={() => {
-								changeRoleHandler('PENDING');
-							}}
-						>
-							<div
-								className="circleDiv"
-								style={{ backgroundColor: '#9C9C9C' }}
-							/>
-							<button>대기</button>
+					{isOwnerChangePage ? (
+						<div className="btnDiv2" onClick={clickChangeOwnerHandler}>
+							<button>결정</button>
 						</div>
-						<div
-							className="btnDiv"
-							onClick={() => {
-								changeRoleHandler('VERIFIED');
-							}}
-						>
+					) : (
+						<div style={{ display: 'flex' }}>
 							<div
-								className="circleDiv"
-								style={{ backgroundColor: '#15D055' }}
-							/>
-							<button>승인</button>
-						</div>
-						<div
-							className="btnDiv"
-							onClick={() => {
-								changeRoleHandler('DENIED');
-							}}
-						>
-							<div
-								className="circleDiv"
-								style={{ backgroundColor: '#FF5252' }}
-							/>
-							<button>거부</button>
-						</div>
-						{hrEnable || hrEnable === undefined ? (
-							<div className="btnDiv2" onClick={clickManageHandler}>
-								<button>관리</button>
+								className="btnDiv"
+								onClick={() => {
+									changeRoleHandler('PENDING');
+								}}
+							>
+								<div
+									className="circleDiv"
+									style={{ backgroundColor: '#9C9C9C' }}
+								/>
+								<button>대기</button>
 							</div>
-						) : (
-							<></>
-						)}
-					</div>
+							<div
+								className="btnDiv"
+								onClick={() => {
+									changeRoleHandler('VERIFIED');
+								}}
+							>
+								<div
+									className="circleDiv"
+									style={{ backgroundColor: '#15D055' }}
+								/>
+								<button>승인</button>
+							</div>
+							<div
+								className="btnDiv"
+								onClick={() => {
+									changeRoleHandler('DENIED');
+								}}
+							>
+								<div
+									className="circleDiv"
+									style={{ backgroundColor: '#FF5252' }}
+								/>
+								<button>거부</button>
+							</div>
+							{hrEnable || hrEnable === undefined ? (
+								<div className="btnDiv2" onClick={clickManageHandler}>
+									<button>관리</button>
+								</div>
+							) : (
+								<></>
+							)}
+						</div>
+					)}
 				</div>
 			</div>
 		</div>
