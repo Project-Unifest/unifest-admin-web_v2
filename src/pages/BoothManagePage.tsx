@@ -55,6 +55,7 @@ const BoothManagePage = () => {
 					phoneNum={phoneNum}
 					role={role}
 					hrEnable={false}
+					isOwnerChangePage={false}
 				/>
 			</div>
 			<div className="boothListDiv">
@@ -64,7 +65,12 @@ const BoothManagePage = () => {
 				) : (
 					<>
 						{boothList.map((value: Booth) => {
-							return <BoothComponent data={value}></BoothComponent>;
+							return (
+								<BoothComponent
+									data={value}
+									schoolId={schoolId}
+								></BoothComponent>
+							);
 						})}
 					</>
 				)}

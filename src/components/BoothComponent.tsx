@@ -2,10 +2,17 @@ import { Booth } from '@/interfaces/interfaces';
 import '@/components/BoothComponent.style.css';
 import { useNavigate } from 'react-router-dom';
 
-const BoothComponent = ({ data }: { data: Booth }) => {
+const BoothComponent = ({
+	data,
+	schoolId,
+}: {
+	data: Booth;
+	schoolId: string | undefined;
+}) => {
 	const navigator = useNavigate();
+
 	const changeOwnerHandler = () => {
-		navigator(`/changeowner/${data.id}`);
+		navigator(`/changeowner/${schoolId}/${data.id}`);
 	};
 	return (
 		<div style={{ marginTop: '30px' }}>

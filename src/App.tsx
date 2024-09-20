@@ -21,7 +21,7 @@ function App() {
 				element: <BoothManagePage />,
 			},
 			{
-				path: '/changeowner/:boothId/',
+				path: '/changeowner/:schoolId/:boothId/',
 				element: <SelectOwnerPage />,
 			},
 		],

@@ -7,11 +7,13 @@ const MemberTable = ({
 	members,
 	fetchMembers,
 	schoolId,
+	isOwnerChangePage,
 }: {
 	loading: boolean;
 	members: Member[] | undefined;
 	fetchMembers: Function;
 	schoolId: number;
+	isOwnerChangePage?: boolean;
 }) => {
 	//const [members, setMembers] = useState([]);
 
@@ -46,6 +48,9 @@ const MemberTable = ({
 						role={value.memberRole}
 						fetchMembers={fetchMembers}
 						schoolId={schoolId}
+						isOwnerChangePage={
+							isOwnerChangePage === undefined ? false : isOwnerChangePage
+						}
 					/>
 				);
 			})}
