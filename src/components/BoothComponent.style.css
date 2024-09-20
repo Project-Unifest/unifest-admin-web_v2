@@ -34,3 +34,22 @@
    flex-direction: 'column';
    margin-left: 30px;
 }
+
+.btnDiv3{
+   width: 170px;
+   float: right;
+   border-radius: 10px;
+   background: #F5687E;
+   padding: 20px 30px 20px 30px;
+   margin-left: 10px;
+
+   color: #FFF;
+   text-align: center;
+   font-family: "Noto Sans KR";
+   font-size: 20px;
+   font-style: normal;
+   font-weight: 700;
+   line-height: normal;
+
+   cursor: pointer;
+}

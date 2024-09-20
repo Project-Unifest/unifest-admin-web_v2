@@ -9,6 +9,7 @@ const MemberComponent = ({
 	role,
 	fetchMembers,
 	hrEnable,
+	schoolId,
 }: {
 	id: string;
 	email: string;
@@ -16,6 +17,7 @@ const MemberComponent = ({
 	role: string;
 	fetchMembers?: Function;
 	hrEnable?: boolean;
+	schoolId?: number;
 }) => {
 	const navigator = useNavigate();
 	const GreenUID = () => {
@@ -52,7 +54,6 @@ const MemberComponent = ({
 	const changeRoleHandler = (value: string) => {
 		if (fetchMembers !== undefined) {
 			//value => value of the pressed button
-			console;
 			patchMember(id, value).then(() => {
 				fetchMembers();
 			});
@@ -62,7 +63,7 @@ const MemberComponent = ({
 	};
 
 	const clickManageHandler = () => {
-		navigator(`/booth/${id}`);
+		navigator(`/booth/${schoolId}/${id}`);
 	};
 
 	return (

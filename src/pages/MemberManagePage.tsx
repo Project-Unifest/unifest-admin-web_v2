@@ -9,9 +9,12 @@ import { getMembers } from '@/apis/membersApi';
 import { Member } from '@/interfaces/interfaces';
 import searchIcon from '@/assets/search.svg';
 
+import schoolData from '@/school.json';
+
 const MemberManage = () => {
 	//when user visit site first time.
 	let flag = false;
+	let schoolId = 0;
 
 	const navigator = useNavigate();
 	const [selectedRole, setSelectedRole] = useState<string | undefined>('');
@@ -22,6 +25,7 @@ const MemberManage = () => {
 	const [verifiedCnt, setVerifiedCnt] = useState<number>(0);
 	const [denyCnt, setDenyCnt] = useState<number>(0);
 	const [search, setSearch] = useState<string>();
+	const [schoolName, setSchoolName] = useState<string | null>();
 
 	useEffect(() => {
 		if (flag === false) {
@@ -30,13 +34,17 @@ const MemberManage = () => {
 			fetchMembers();
 		}
 	}, [selectedRole]);
+
 	useEffect(() => {
 		setSearchList(memberList);
 		initCount();
 	}, [memberList]);
+
 	useEffect(() => {
+		setSchoolName(localStorage.getItem('schoolName'));
 		fetchMembers();
 	}, []);
+
 	useEffect(() => {
 		if (search !== undefined) {
 			setSearchList(
@@ -61,6 +69,8 @@ const MemberManage = () => {
 				if (typeof res !== 'number' && res !== undefined) {
 					setMemberList(res.data.data);
 					setLoading(false);
+					schoolId = res.data.data[0].schoolId;
+					localStorage.setItem('schoolName', schoolData.data[schoolId - 1]);
 				} else {
 					switch (res) {
 						case 403:
@@ -125,7 +135,7 @@ const MemberManage = () => {
 		<div>
 			<Header onLogout={handleLogout} />
 			<div>
-				<HeaderText school="건국대학교" title="운영자 계정 관리"></HeaderText>
+				<HeaderText school={schoolName} title="운영자 계정 관리"></HeaderText>
 				<div className="roleBar">
 					<div className="roleDiv">
 						<div className="roleLeftDiv">전체 신청 수</div>
@@ -183,6 +193,7 @@ const MemberManage = () => {
 						loading={loading}
 						members={searchList}
 						fetchMembers={fetchMembers}
+						schoolId={schoolId}
 					/>
 				</div>
 			</div>

@@ -17,7 +17,7 @@ body {
 #root {
   min-width: 1300px;
   min-height: 512px;
-    margin: 0px 131px 0px 131px;
+  margin: 0px 131px 0px 131px;
 }
 * {
   box-sizing: border-box;

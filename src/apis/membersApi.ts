@@ -45,6 +45,6 @@ export const getMember = async (id: string) => {
 			`${import.meta.env.VITE_REACT_APP_API_ROOT}/members/${id}`,
 		);
 	} catch (error) {
-		throw new Error('로그인에 실패하였습니다');
+		throw new Error('getMember 에러');
 	}
 };

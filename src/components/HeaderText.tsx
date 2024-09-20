@@ -1,7 +1,7 @@
 import './HeaderText.style.css';
 
 interface HeaderTextProps {
-	school: string;
+	school: string | null | undefined;
 	title: string;
 }
 const HeaderText = (props: HeaderTextProps) => {

@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import LoginPage from '@/pages/LoginPage';
 import BoothManagePage from '@/pages/BoothManagePage';
 import MemberManage from '@/pages/MemberManagePage';
+import SelectOwnerPage from './pages/SelectOwnerPage';
 
 function App() {
 	const router = createBrowserRouter(
@@ -16,8 +17,12 @@ function App() {
 				element: <MemberManage />,
 			},
 			{
-				path: '/booth/:memberId',
+				path: '/booth/:schoolId/:memberId/',
 				element: <BoothManagePage />,
+			},
+			{
+				path: '/changeowner/:boothId/',
+				element: <SelectOwnerPage />,
 			},
 		],
 		{ basename: '/unifest-admin-web_v2' },

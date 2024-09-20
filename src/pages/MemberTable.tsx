@@ -6,10 +6,12 @@ const MemberTable = ({
 	loading,
 	members,
 	fetchMembers,
+	schoolId,
 }: {
 	loading: boolean;
 	members: Member[] | undefined;
 	fetchMembers: Function;
+	schoolId: number;
 }) => {
 	//const [members, setMembers] = useState([]);
 
@@ -43,6 +45,7 @@ const MemberTable = ({
 						phoneNum={value.phoneNum}
 						role={value.memberRole}
 						fetchMembers={fetchMembers}
+						schoolId={schoolId}
 					/>
 				);
 			})}
