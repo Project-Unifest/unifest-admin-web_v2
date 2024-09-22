@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import LoginPage from '@/pages/LoginPage';
 import BoothManagePage from '@/pages/BoothManagePage';
 import MemberManage from '@/pages/MemberManagePage';
+import SettingPage from './pages/SettingPage';
 import SelectOwnerPage from './pages/SelectOwnerPage';
 
 function App() {
@@ -19,6 +20,10 @@ function App() {
 			{
 				path: '/booth/:schoolId/:memberId/',
 				element: <BoothManagePage />,
+			},
+			{
+				path: '/setting',
+				element: <SettingPage />,
 			},
 			{
 				path: '/changeowner/:schoolId/:boothId/',
