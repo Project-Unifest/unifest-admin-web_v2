@@ -14,7 +14,7 @@ const MemberTable = ({
 	members: Member[] | undefined;
 	fetchMembers: Function;
 	schoolId: number;
-	boothId: number;
+	boothId?: number;
 	isOwnerChangePage?: boolean;
 }) => {
 	//const [members, setMembers] = useState([]);
