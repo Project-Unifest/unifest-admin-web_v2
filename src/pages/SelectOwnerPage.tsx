@@ -165,6 +165,7 @@ const SelectOwnerPage = () => {
 						members={searchList}
 						fetchMembers={fetchMembers}
 						schoolId={parseInt(schoolId)}
+						boothId={parseInt(boothId)}
 						isOwnerChangePage={true}
 					/>
 				)}

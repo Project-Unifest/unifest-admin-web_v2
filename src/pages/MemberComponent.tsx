@@ -1,6 +1,7 @@
 import { patchMember } from '@/apis/membersApi';
 import '../styles/MemberComponent.style.css';
 import { useNavigate } from 'react-router-dom';
+import { giveBooth } from '@/apis/boothApi';
 
 const MemberComponent = ({
 	id,
@@ -10,6 +11,7 @@ const MemberComponent = ({
 	fetchMembers,
 	hrEnable,
 	schoolId,
+	boothId,
 	isOwnerChangePage,
 }: {
 	id: string;
@@ -19,6 +21,7 @@ const MemberComponent = ({
 	fetchMembers?: Function;
 	hrEnable?: boolean;
 	schoolId?: number;
+	boothId?: number;
 	isOwnerChangePage: boolean;
 }) => {
 	const navigator = useNavigate();
@@ -64,7 +67,12 @@ const MemberComponent = ({
 		}
 	};
 	const clickChangeOwnerHandler = () => {
-		alert('Unimplemented!');
+		if (boothId !== undefined) {
+			giveBooth(boothId, parseInt(id));
+		} else {
+			alert('소유자 이전 중에 문제가 발생했습니다. 운영자에 문의바랍니다');
+		}
+
 		navigator(`/`);
 	};
 
