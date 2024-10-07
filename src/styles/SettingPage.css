@@ -1,0 +1,29 @@
+.tabListDiv{
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+
+    user-select: none;
+
+    color: #464646;
+    text-align: center;
+    font-family: "Noto Sans KR";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.tabListDiv li{
+    padding: 10px;
+    margin-right: 5px;
+
+    cursor: pointer;
+}
+
+.tabListDiv2 li{
+    padding: 10px;
+    margin-right: 5px;
+    
+    border-bottom: 3px solid #F895A5;
+}
