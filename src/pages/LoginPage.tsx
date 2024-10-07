@@ -42,6 +42,10 @@ const LoginPage = () => {
 					setRefreshToken(res.headers.refreshtoken);
 
 					setIsOK(true);
+				} else if (res.status === 401) {
+					alert('아이디 또는 비밀번호가 틀렸습니다');
+				} else {
+					alert(res.status + '오류 발생, 관계자에 문의바랍니다');
 				}
 			});
 		} catch (error) {
