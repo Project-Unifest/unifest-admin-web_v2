@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 const StampSettingPage = () => {
 	const [boothList, setBoothList] = useState<Booth[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
-	const [isBtnEnabled, setIsBtnEnabled] = useState<boolean>(false);
+	// const [isBtnEnabled, setIsBtnEnabled] = useState<boolean>(false);
 	useEffect(() => {
 		console.log(isLoading, boothList);
 	}, [isLoading]);
