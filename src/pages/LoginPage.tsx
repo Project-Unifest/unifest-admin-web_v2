@@ -36,6 +36,7 @@ const LoginPage = () => {
 				pw: password,
 			}).then((res) => {
 				if (res.status === 200) {
+					console.log(res);
 					localStorage.setItem('accessToken', res.headers.authorization);
 					localStorage.setItem('refreshToken', res.headers.refreshtoken);
 					setAccessToken(res.headers.authorization);

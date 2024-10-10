@@ -158,7 +158,7 @@ const SelectOwnerPage = () => {
 					</div>
 				</div>
 				{schoolId === undefined ? (
-					<div>gg</div>
+					<div>schoolId가 지정되지 않았습니다</div>
 				) : (
 					<MemberTable
 						loading={loading}

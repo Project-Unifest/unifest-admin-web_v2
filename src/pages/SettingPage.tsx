@@ -18,7 +18,7 @@ const SettingPage = () => {
 			case 0:
 				return <StampSettingPage />;
 			case 1:
-				return <div>1</div>;
+				return <div>미개발</div>;
 			default:
 				return <div>문제 발생, 운영자에 문의 바랍니다</div>;
 		}
@@ -43,27 +43,30 @@ const SettingPage = () => {
 				<HeaderText school={schoolName} title="설정 페이지"></HeaderText>
 			</div>
 			<div className="tabListDiv">
-				{tabList.map((value, index) => {
-					return selectedTab === index ? (
-						<div className="tabListDiv2">
+				<div style={{ display: 'flex', flexDirection: 'row', float: 'left' }}>
+					{tabList.map((value, index) => {
+						return selectedTab === index ? (
+							<div key={index} className="tabListDiv2">
+								<li
+									onClick={() => {
+										onTabClicked(index);
+									}}
+								>
+									{value}
+								</li>
+							</div>
+						) : (
 							<li
+								key={index}
 								onClick={() => {
 									onTabClicked(index);
 								}}
 							>
 								{value}
 							</li>
-						</div>
-					) : (
-						<li
-							onClick={() => {
-								onTabClicked(index);
-							}}
-						>
-							{value}
-						</li>
-					);
-				})}
+						);
+					})}
+				</div>
 			</div>
 			<div>{tabContent(selectedTab)}</div>
 		</div>
