@@ -36,12 +36,17 @@ const LoginPage = () => {
 				pw: password,
 			}).then((res) => {
 				if (res.status === 200) {
+					console.log(res);
 					localStorage.setItem('accessToken', res.headers.authorization);
 					localStorage.setItem('refreshToken', res.headers.refreshtoken);
 					setAccessToken(res.headers.authorization);
 					setRefreshToken(res.headers.refreshtoken);
 
 					setIsOK(true);
+				} else if (res.status === 401) {
+					alert('아이디 또는 비밀번호가 틀렸습니다');
+				} else {
+					alert(res.status + '오류 발생, 관계자에 문의바랍니다');
 				}
 			});
 		} catch (error) {
