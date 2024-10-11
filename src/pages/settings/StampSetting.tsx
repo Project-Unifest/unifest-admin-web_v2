@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 const StampSettingPage = () => {
 	const [boothList, setBoothList] = useState<Booth[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
+	const [chkList, setChkList] = useState<Set<number> | undefined>(new Set());
 	// const [isBtnEnabled, setIsBtnEnabled] = useState<boolean>(false);
 	useEffect(() => {
 		console.log(isLoading, boothList);
@@ -20,6 +21,17 @@ const StampSettingPage = () => {
 			setBoothList([...res.data.data]);
 		});
 	}, []);
+
+	const setCheckList = (id: number, isChecked: boolean) => {
+		if (isChecked) {
+			chkList?.add(id);
+			setChkList(chkList);
+		} else {
+			chkList?.delete(id);
+			setChkList(chkList);
+		}
+	};
+
 	return (
 		<>
 			{isLoading ? (
@@ -33,14 +45,14 @@ const StampSettingPage = () => {
 								data={value}
 								schoolId="2"
 								isButtonEnabled={false}
+								setCheckList={setCheckList}
 							></BoothComponent>
 						);
 					})}
-					<div>
-						<div className="btnDiv4">등록하기</div>
-					</div>
 				</>
 			)}
+			<div style={{ margin: '140px' }}></div>
+			<div className="btnDiv4">등록하기</div>
 		</>
 	);
 };

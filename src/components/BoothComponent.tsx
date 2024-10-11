@@ -1,20 +1,31 @@
 import { Booth } from '@/interfaces/interfaces';
 import '@/components/BoothComponent.style.css';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const BoothComponent = ({
 	data,
 	schoolId,
 	isButtonEnabled = true,
+	setCheckList,
 }: {
 	data: Booth;
 	schoolId: string | undefined;
 	isButtonEnabled?: boolean;
+	setCheckList?: Function;
 }) => {
 	const navigator = useNavigate();
 
 	const changeOwnerHandler = () => {
 		navigator(`/changeowner/${schoolId}/${data.id}`);
+	};
+
+	const [checked, setChecked] = useState<boolean>(false);
+	const checkboxHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setChecked(!checked);
+		if (setCheckList !== undefined) {
+			setCheckList(data.id, event.target.checked);
+		}
 	};
 	return (
 		<div style={{ marginTop: '30px' }}>
@@ -28,7 +39,12 @@ const BoothComponent = ({
 			>
 				{!isButtonEnabled && (
 					<div className="chkBoxDiv">
-						<input type="checkbox" className="chkBox"></input>
+						<input
+							type="checkbox"
+							className="chkBox"
+							checked={checked}
+							onChange={(e) => checkboxHandler(e)}
+						></input>
 					</div>
 				)}
 				<img src={data.thumbnail} width="154px" height="154px"></img>

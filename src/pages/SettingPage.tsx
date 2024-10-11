@@ -68,7 +68,7 @@ const SettingPage = () => {
 					})}
 				</div>
 			</div>
-			<div>{tabContent(selectedTab)}</div>
+			{tabContent(selectedTab)}
 		</div>
 	);
 };

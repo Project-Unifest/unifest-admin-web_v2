@@ -29,11 +29,17 @@
 }
 
 .btnDiv4{
+    position: fixed;
+    left: 50%;
+    bottom: 0px;
+    transform: translateX(-50%); 
+    width: 80vw;
+
+
     border-radius: 10px;
     background: #F5687E;
     padding: 20px 30px 20px 30px;
     margin: 20px 20px 50px 20px;
-    margin-left : auto;
  
     color: #FFF;
     text-align: center;
