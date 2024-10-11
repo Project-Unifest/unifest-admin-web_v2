@@ -51,3 +51,25 @@
  
     cursor: pointer;
  }
+
+ .btnDiv4Disabled{
+    position: fixed;
+    left: 50%;
+    bottom: 0px;
+    transform: translateX(-50%); 
+    width: 80vw;
+
+    border-radius: 10px;
+    background: #727276;
+    padding: 20px 30px 20px 30px;
+    margin: 20px 20px 50px 20px;
+ 
+    color: #FFF;
+    text-align: center;
+    font-family: "Noto Sans KR";
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+
+ }

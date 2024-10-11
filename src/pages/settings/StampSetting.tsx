@@ -21,14 +21,20 @@ const StampSettingPage = () => {
 			setBoothList([...res.data.data]);
 		});
 	}, []);
+	// useEffect(() => {
+	// 	console.log('aaa');
+	// 	console.log(chkList);
+	// }, [chkList]);
 
+	const onEnrollHandler = () => {};
 	const setCheckList = (id: number, isChecked: boolean) => {
+		const _arr = new Set(chkList);
 		if (isChecked) {
-			chkList?.add(id);
-			setChkList(chkList);
+			_arr.add(id);
+			setChkList(_arr);
 		} else {
-			chkList?.delete(id);
-			setChkList(chkList);
+			_arr?.delete(id);
+			setChkList(_arr);
 		}
 	};
 
@@ -52,7 +58,13 @@ const StampSettingPage = () => {
 				</>
 			)}
 			<div style={{ margin: '140px' }}></div>
-			<div className="btnDiv4">등록하기</div>
+			{chkList?.size === 0 ? (
+				<div className="btnDiv4Disabled">등록하기</div>
+			) : (
+				<div className="btnDiv4" onClick={onEnrollHandler}>
+					등록하기
+				</div>
+			)}
 		</>
 	);
 };
