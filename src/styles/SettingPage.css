@@ -73,3 +73,65 @@
     line-height: normal;
 
  }
+
+ .QRContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+ }
+
+ .QRWrap{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border:1px solid #727276;
+    border-radius: 10px;
+    margin: 15px 10px;
+    padding: 20px;
+    
+    text-align: center;
+    font-family: "Noto Sans KR";
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    
+ }
+ .QRComponent{
+    margin-top:10px;
+ }
+
+ .QRDownload{
+    font-size: 26px;
+    font-weight: 300;
+    cursor: pointer;
+
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none
+ }
+
+ .btnDiv5{
+    width: 320px;
+    border-radius: 10px;
+    background: #F5687E;
+    padding: 20px 30px 20px 30px;
+    margin: 20px 0;
+ 
+    color: #FFF;
+    text-align: center;
+    font-family: "Noto Sans KR";
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+ 
+    cursor: pointer;
+
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none
+ }

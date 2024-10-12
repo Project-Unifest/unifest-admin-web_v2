@@ -1,32 +1,38 @@
 import { Booth } from '@/interfaces/interfaces';
 import '@/components/BoothComponent.style.css';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const BoothComponent = ({
 	data,
 	schoolId,
 	isButtonEnabled = true,
+	chkList,
 	setCheckList,
 }: {
 	data: Booth;
 	schoolId: string | undefined;
 	isButtonEnabled?: boolean;
+	chkList?: Set<number> | undefined;
 	setCheckList?: Function;
 }) => {
+	const [checked, setChecked] = useState<boolean>(false);
+	useEffect(() => {
+		chkList?.has(data.id) && setChecked(true);
+	}, [chkList]);
 	const navigator = useNavigate();
 
 	const changeOwnerHandler = () => {
 		navigator(`/changeowner/${schoolId}/${data.id}`);
 	};
 
-	const [checked, setChecked] = useState<boolean>(false);
 	const checkboxHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setChecked(!checked);
 		if (setCheckList !== undefined) {
 			setCheckList(data.id, event.target.checked);
 		}
 	};
+
 	return (
 		<div style={{ marginTop: '30px' }}>
 			<hr />
