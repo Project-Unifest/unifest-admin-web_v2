@@ -19,6 +19,7 @@ export interface Booth {
 	menus: [];
 	enabled: boolean;
 	waitingEnabled: boolean;
+	stampEnabled: boolean;
 	openTime: string;
 	closeTime: string;
 }

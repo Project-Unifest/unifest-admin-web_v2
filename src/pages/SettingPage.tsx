@@ -5,9 +5,10 @@ import { useNavigate } from 'react-router-dom';
 
 import '@/styles/SettingPage.css';
 import StampSettingPage from './settings/StampSetting';
+import StampQRSettingPage from './settings/StampQRSettingPage';
 
 const SettingPage = () => {
-	const tabList = ['스탬프 설정', '투표 설정'];
+	const tabList = ['스탬프 설정', '스탬프 QR 생성'];
 	const [schoolName, setSchoolName] = useState<string | null>();
 	const [selectedTab, setSelectedTab] = useState<number>(0);
 
@@ -18,7 +19,7 @@ const SettingPage = () => {
 			case 0:
 				return <StampSettingPage />;
 			case 1:
-				return <div>미개발</div>;
+				return <StampQRSettingPage />;
 			default:
 				return <div>문제 발생, 운영자에 문의 바랍니다</div>;
 		}
@@ -68,7 +69,7 @@ const SettingPage = () => {
 					})}
 				</div>
 			</div>
-			<div>{tabContent(selectedTab)}</div>
+			{tabContent(selectedTab)}
 		</div>
 	);
 };

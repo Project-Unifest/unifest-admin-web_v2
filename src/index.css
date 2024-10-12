@@ -15,7 +15,7 @@ body {
   height: 100%;
 }
 #root {
-  min-width: 1300px;
+  min-width: 1000px;
   min-height: 512px;
   margin: 0px 131px 0px 131px;
 }
@@ -38,4 +38,8 @@ button {
   /* 사용할 폰트의 기본 스타일 */
   font-weight: 400;
   font-style: normal;
+}
+
+.containerDiv{
+  width: 100%;
 }
