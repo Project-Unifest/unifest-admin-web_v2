@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { axiosAuthClient, axiosClient } from './axios';
+import { axiosAuthClient } from './axios';
 import { Booth } from '@/interfaces/interfaces';
 
 export interface StampBoothsResponse {
