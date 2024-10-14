@@ -117,7 +117,7 @@ const SelectOwnerPage = () => {
 						}}
 					>
 						<img
-							src={data?.thumbnail === null ? placeholderImg : data?.thumbnail}
+							src={data?.thumbnail === '' ? placeholderImg : data?.thumbnail}
 							width="154px"
 							height="154px"
 						></img>

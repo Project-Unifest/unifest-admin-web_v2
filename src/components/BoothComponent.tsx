@@ -2,6 +2,7 @@ import { Booth } from '@/interfaces/interfaces';
 import '@/components/BoothComponent.style.css';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import placeholderImg from '@/assets/placeholder.svg';
 
 const BoothComponent = ({
 	data,
@@ -53,7 +54,11 @@ const BoothComponent = ({
 						></input>
 					</div>
 				)}
-				<img src={data.thumbnail} width="154px" height="154px"></img>
+				<img
+					src={data.thumbnail === '' ? placeholderImg : data.thumbnail}
+					width="154px"
+					height="154px"
+				></img>
 				<div className="columnFlexDiv">
 					<div className="boothName">{data.name}</div>
 					<div className="boothDesc">{data.description}</div>
