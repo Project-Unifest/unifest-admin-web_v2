@@ -9,6 +9,7 @@ import { Booth, Member } from '@/interfaces/interfaces';
 import { getBooth } from '@/apis/boothApi';
 import { getMembers } from '@/apis/membersApi';
 import MemberTable from './MemberTable';
+import placeholderImg from '@/assets/placeholder.svg';
 
 const SelectOwnerPage = () => {
 	//when user visit site first time.
@@ -115,7 +116,11 @@ const SelectOwnerPage = () => {
 							alignItems: 'center',
 						}}
 					>
-						<img src={data?.thumbnail} width="154px" height="154px"></img>
+						<img
+							src={data?.thumbnail === null ? placeholderImg : data?.thumbnail}
+							width="154px"
+							height="154px"
+						></img>
 						<div className="columnFlexDiv">
 							<div className="boothName">{data?.name}</div>
 							<div className="boothDesc">{data?.description}</div>
