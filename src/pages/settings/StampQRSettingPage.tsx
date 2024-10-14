@@ -13,10 +13,6 @@ const StampQRSettingPage = () => {
 	const qrList = useRef<(SVGSVGElement | null)[]>([]);
 
 	useEffect(() => {
-		console.log(chkList);
-	}, [chkList]);
-
-	useEffect(() => {
 		//하드코딩
 		getAllStampBooths('2').then((res) => {
 			const _arr: StampBoothsQR[] = [];
@@ -69,9 +65,7 @@ const StampQRSettingPage = () => {
 		let img = new Image();
 		let ctx = canvas.getContext('2d');
 		img.src = url;
-		console.log('aa');
 		img.onload = () => {
-			console.log('dd');
 			ctx?.drawImage(img, 0, 0);
 			let pngUrl = canvas.toDataURL('image/png');
 			downloadData(pngUrl, data.name + '.png');

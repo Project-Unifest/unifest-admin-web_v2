@@ -19,7 +19,6 @@ const LoginPage = () => {
 		}
 	}, [isOK]);
 	const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		console.log(typeof event);
 		setEmail(event.target.value);
 	};
 
