@@ -3,7 +3,7 @@ import { axiosAuthClient } from './axios';
 export const getBooth = async (id: string) => {
 	try {
 		return await axiosAuthClient.get(
-			`${import.meta.env.VITE_REACT_APP_API_ROOT}/api/booths/${id}`,
+			`${import.meta.env.VITE_REACT_APP_API_ROOT}/admin/booth/${id}`,
 		);
 	} catch (error) {
 		throw new Error('getBooth 에러');
@@ -13,7 +13,7 @@ export const getBooth = async (id: string) => {
 export const getAllBooths = async (festivalId: string) => {
 	try {
 		return await axiosAuthClient.get(
-			`${import.meta.env.VITE_REACT_APP_API_ROOT}/api/booths/${festivalId}/booths`,
+			`${import.meta.env.VITE_REACT_APP_API_ROOT}/admin/booth/${festivalId}/booths`,
 		);
 	} catch (error) {
 		throw new Error('getAllBooths 에러');
