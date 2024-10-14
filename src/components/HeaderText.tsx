@@ -11,7 +11,8 @@ const HeaderText = (props: HeaderTextProps) => {
 	return (
 		<div className="HeaderTextDiv">
 			<div style={{ display: 'flex' }}>
-				<div className="schoolText">{props.school}</div>
+				<div className="schoolText">한국교통대학교</div>
+				{/* <div className="schoolText">{props.school}</div> */}
 				<div
 					style={{
 						display: 'flex',
