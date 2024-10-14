@@ -35,11 +35,12 @@ const StampSettingPage = () => {
 	const onEnrollHandler = () => {
 		if (chkList === undefined) {
 			alert('chkList undefined. 관계자에 문의바랍니다');
-		} else {
-			boothList.forEach((value) => {
-				console.log(patchStampEnabled(value.id, chkList.has(value.id)));
-			});
 		}
+		// else {
+		// 	boothList.forEach((value) => {
+		// 		console.log(patchStampEnabled(value.id, chkList.has(value.id)));
+		// 	});
+		// }
 	};
 	const setCheckList = (id: number, isChecked: boolean) => {
 		const _arr = new Set(chkList);
