@@ -88,7 +88,7 @@
     border:1px solid #727276;
     border-radius: 10px;
     margin: 15px 10px;
-    padding: 20px;
+    padding: 10px;
     
     text-align: center;
     font-family: "Noto Sans KR";
@@ -96,7 +96,8 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    
+    max-width: 325px;
+    width: 323px;
  }
  .QRComponent{
     margin-top:10px;
