@@ -34,3 +34,18 @@ export const giveBooth = async (boothId: number, newId: number) => {
 		throw new Error('giveBooth 에러');
 	}
 };
+
+export const moveBooth = async (boothId: number, lat: number, lng: number) => {
+	const data = {
+		latitude: lat,
+		longitude: lng,
+	};
+	try {
+		return await axiosAuthClient.patch(
+			`${import.meta.env.VITE_REACT_APP_API_ROOT}/api/booths/${boothId}`,
+			data,
+		);
+	} catch (error) {
+		throw new Error('moveBooth 에러');
+	}
+};
