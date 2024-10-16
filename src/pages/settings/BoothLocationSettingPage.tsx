@@ -51,10 +51,10 @@ const BoothLocationSettingPage = () => {
 				content: contentString,
 				borderRadius: 5,
 			});
-			naver.maps.Event.addListener(temp, 'mouseover', (e: any) => {
+			naver.maps.Event.addListener(temp, 'mouseover', () => {
 				infowindow.open(mapInstance, temp);
 			});
-			naver.maps.Event.addListener(temp, 'mouseout', (e: any) => {
+			naver.maps.Event.addListener(temp, 'mouseout', () => {
 				if (infowindow.getMap()) {
 					infowindow.close();
 				}
@@ -72,6 +72,7 @@ const BoothLocationSettingPage = () => {
 			_arr?.push(temp);
 		});
 		setBoothMarkerList(_arr);
+		boothMarkerList;
 	}, [boothList]);
 	useEffect(() => {
 		initMap();
