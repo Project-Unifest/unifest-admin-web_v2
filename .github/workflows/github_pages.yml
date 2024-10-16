@@ -43,8 +43,10 @@ jobs:
         run: |
           touch .env
           echo "VITE_REACT_APP_API_ROOT=$VITE_API_BACK_URL" >> .env
+          echo "VITE_MAP_API_KEY=$VITE_MAP_API_KEY" >> .env
         env:
           VITE_API_BACK_URL: ${{ secrets.VITE_API_BACK_URL }}
+          VITE_MAP_API_KEY: ${{ secrets.VITE_MAP_API_KEY }}
       - name: Build
         run: npm run build
         
