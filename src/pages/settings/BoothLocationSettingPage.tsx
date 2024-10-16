@@ -2,6 +2,8 @@ import { getAllBooths, moveBooth } from '@/apis/boothApi';
 import { Booth } from '@/interfaces/interfaces';
 import { useEffect, useState } from 'react';
 
+import '@/styles/SettingPage.css';
+
 var mapInstance: naver.maps.Map;
 type positionChangeEvent = {
 	x: number;
@@ -19,14 +21,52 @@ const BoothLocationSettingPage = () => {
 			const temp = new naver.maps.Marker({
 				position: new naver.maps.LatLng(value.latitude, value.longitude),
 				map: mapInstance,
-				title: value.name,
 				draggable: true,
+			});
+			switch (value.category) {
+				case 'BAR':
+					temp.setIcon('src/assets/activity.svg');
+					break;
+				case 'FOOD':
+					temp.setIcon('src/assets/food.svg');
+					break;
+				case 'EVENT':
+					temp.setIcon('src/assets/school.svg');
+					break;
+				case 'NORMAL':
+					temp.setIcon('src/assets/company.svg');
+					break;
+				default:
+					temp.setIcon('src/assets/activity.svg');
+					break;
+			}
+
+			const contentString = [
+				`<div className="markerInfo">`,
+				`	<h3>${value.name}</h3>`,
+				`	<p>${value.description}</p>`,
+				`</div>`,
+			].join('');
+			var infowindow = new naver.maps.InfoWindow({
+				content: contentString,
+				borderRadius: 5,
+			});
+			naver.maps.Event.addListener(temp, 'mouseover', (e: any) => {
+				infowindow.open(mapInstance, temp);
+			});
+			naver.maps.Event.addListener(temp, 'mouseout', (e: any) => {
+				if (infowindow.getMap()) {
+					infowindow.close();
+				}
 			});
 			naver.maps.Event.addListener(
 				temp,
 				'position_changed',
 				(e: positionChangeEvent) => {
 					moveBooth(value.id, e._lat, e._lng);
+					if (infowindow.getMap()) {
+						infowindow.close();
+					}
 				},
 			);
 			_arr?.push(temp);

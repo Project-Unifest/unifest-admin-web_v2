@@ -136,3 +136,7 @@
     -ms-user-select:none;
     user-select:none
  }
+
+ .markerInfo{
+   border-radius: 10px;
+ }
