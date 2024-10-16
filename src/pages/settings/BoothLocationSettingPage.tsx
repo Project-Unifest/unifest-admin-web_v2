@@ -25,19 +25,29 @@ const BoothLocationSettingPage = () => {
 			});
 			switch (value.category) {
 				case 'BAR':
-					temp.setIcon('src/assets/activity.svg');
+					temp.setIcon(
+						'https://unifest-dev-bucket.s3.ap-northeast-2.amazonaws.com/58c972ff-183c-4c6e-adb0-52fe0fadbe4d.svg%2Bxml',
+					);
 					break;
 				case 'FOOD':
-					temp.setIcon('src/assets/food.svg');
+					temp.setIcon(
+						'https://unifest-dev-bucket.s3.ap-northeast-2.amazonaws.com/9cda2ca7-aaf4-4aa2-997c-69274d5c05b5.svg%2Bxml',
+					);
 					break;
 				case 'EVENT':
-					temp.setIcon('src/assets/school.svg');
+					temp.setIcon(
+						'https://unifest-dev-bucket.s3.ap-northeast-2.amazonaws.com/a0e6b03c-d2e5-44a0-822b-26c87c98c217.svg%2Bxml',
+					);
 					break;
 				case 'NORMAL':
-					temp.setIcon('src/assets/company.svg');
+					temp.setIcon(
+						'https://unifest-dev-bucket.s3.ap-northeast-2.amazonaws.com/a092d342-9e06-426b-9d01-59e9ae944fcb.svg%2Bxml',
+					);
 					break;
 				default:
-					temp.setIcon('src/assets/activity.svg');
+					temp.setIcon(
+						'https://unifest-dev-bucket.s3.ap-northeast-2.amazonaws.com/58c972ff-183c-4c6e-adb0-52fe0fadbe4d.svg%2Bxml',
+					);
 					break;
 			}
 
