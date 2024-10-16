@@ -49,7 +49,6 @@ const BoothLocationSettingPage = () => {
 			].join('');
 			var infowindow = new naver.maps.InfoWindow({
 				content: contentString,
-				borderRadius: 5,
 			});
 			naver.maps.Event.addListener(temp, 'mouseover', () => {
 				infowindow.open(mapInstance, temp);
