@@ -33,6 +33,15 @@ export const axiosAuthClient = axios.create({
 	},
 });
 
+axiosAuthClient.interceptors.response.use(
+	(res) => res,
+	(err) => {
+		if (err.response && err.response.status === 401) {
+			window.location.href = '/unifest-admin-web_v2/login';
+		}
+		return Promise.reject(err);
+	},
+);
 export const getData = async <T>(
 	url: string,
 	config?: AxiosRequestConfig,

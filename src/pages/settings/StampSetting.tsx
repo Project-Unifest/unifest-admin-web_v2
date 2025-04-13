@@ -8,11 +8,8 @@ const StampSettingPage = () => {
 	const [boothList, setBoothList] = useState<Booth[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [chkList, setChkList] = useState<Set<number> | undefined>(new Set());
+	const schoolId = localStorage.getItem('schoolId');
 
-	// const [isBtnEnabled, setIsBtnEnabled] = useState<boolean>(false);
-	// useEffect(() => {
-	// 	console.log(isLoading, boothList);
-	// }, [isLoading]);
 	useEffect(() => {
 		if (boothList.length !== 0) {
 			setIsLoading(false);
@@ -20,10 +17,10 @@ const StampSettingPage = () => {
 	}, [boothList]);
 	useEffect(() => {
 		//하드코딩
-		getAllBooths('2').then((res) => {
+		getAllBooths(schoolId!).then((res) => {
 			setBoothList([...res.data.data]);
 		});
-		getAllStampBooths('2').then((res) => {
+		getAllStampBooths(schoolId!).then((res) => {
 			const _arr: Set<number> = new Set();
 			res.data.data.forEach((value) => {
 				_arr.add(value.id);

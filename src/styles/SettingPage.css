@@ -140,3 +140,99 @@
  .markerInfo{
    border-radius: 10px;
  }
+
+ .festivalSettingContainer{
+   display: flex;
+   flex-direction: column;
+   margin-top: 20px;
+   gap:12px
+ }
+ .festivalSettingNameDiv{
+   display: flex;
+   flex-direction: row;
+   gap : 20px;
+   padding: 8px;
+
+   text-align: center;
+   font-family: "Noto Sans KR";
+   font-size: 28px;
+   font-style: normal;
+   font-weight: 500;
+   line-height: normal;
+ }
+ 
+ .festivalSettingNameDiv div input{
+   font-family: "Noto Sans KR";
+   font-size: 28px;
+   font-style: normal;
+   font-weight: 500;
+   line-height: normal;
+   border-radius: 12px;
+   border : 1px solid #EBEBEB; 
+   
+ }
+
+ .festivalSettingDateDiv{
+   display: flex;
+   flex-direction: row;
+   gap : 20px;
+   padding: 8px;
+
+   text-align: center;
+   font-family: "Noto Sans KR";
+   font-size: 28px;
+   font-style: normal;
+   font-weight: 500;
+   line-height: normal;
+   border-radius: 12px;
+ }
+
+ .festivalSettingDateDiv div input{
+   font-family: "Noto Sans KR";
+   font-size: 28px;
+   font-style: normal;
+   font-weight: 500;
+   line-height: normal;
+
+   border-radius: 12px;
+   border : 1px solid #EBEBEB; 
+
+ }
+
+ .festivalSettingFileDiv{
+   display: flex;
+   flex-direction: row;
+   gap : 20px;
+   padding: 8px;
+
+   text-align: center;
+   font-family: "Noto Sans KR";
+   font-size: 28px;
+   font-style: normal;
+   font-weight: 500;
+   line-height: normal;
+
+   align-items: center;
+   /* border-radius: 67px;
+   border: 1px solid #BABABA; */
+
+ }
+
+ .festivalSettingFileDiv input{
+   border-radius: 12px;
+   padding: 10px;
+   background: #EBEBEB; 
+   cursor:pointer;
+   font-family: "Noto Sans KR";
+   font-size: 28px;
+   font-style: normal;
+   font-weight: 500;
+   line-height: normal;   
+ }
+
+ .festivalSettingBtnDiv{
+   width: 100%;
+   display: flex;
+   justify-content: start;
+   flex-grow:  1;
+ }

@@ -14,6 +14,7 @@ type positionChangeEvent = {
 const BoothLocationSettingPage = () => {
 	const [boothList, setBoothList] = useState<Booth[]>();
 	const [boothMarkerList, setBoothMarkerList] = useState<naver.maps.Marker[]>();
+	const schoolId = localStorage.getItem('schoolId');
 
 	useEffect(() => {
 		const _arr: naver.maps.Marker[] = [];
@@ -86,7 +87,7 @@ const BoothLocationSettingPage = () => {
 	useEffect(() => {
 		initMap();
 		//하드 코딩
-		getAllBooths('2').then((res) => {
+		getAllBooths(schoolId!).then((res) => {
 			setBoothList([...res.data.data]);
 		});
 		setBoothMarkerList([]);
