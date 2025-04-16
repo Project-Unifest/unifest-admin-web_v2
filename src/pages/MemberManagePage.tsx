@@ -5,7 +5,7 @@ import HeaderText from '@/components/HeaderText';
 import '@/styles/MemberManagePage.css';
 import Header from '@/components/LogoBar';
 import { useNavigate } from 'react-router-dom';
-import { getMembers } from '@/apis/membersApi';
+import { getMembers, getMembersMy } from '@/apis/membersApi';
 import { Member } from '@/interfaces/interfaces';
 import searchIcon from '@/assets/search.svg';
 
@@ -64,7 +64,9 @@ const MemberManage = () => {
 				if (typeof res !== 'number' && res !== undefined) {
 					setMemberList(res.data.data);
 					setLoading(false);
-					schoolId = res.data.data[0].schoolId;
+					getMembersMy().then((res) => {
+						schoolId = res.data.data.schoolId;
+					});
 
 					setSchoolName(SCHOOL_IDS[schoolId]);
 					localStorage.setItem('schoolName', SCHOOL_IDS[schoolId]);
