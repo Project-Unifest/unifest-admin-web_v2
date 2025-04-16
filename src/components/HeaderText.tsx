@@ -6,12 +6,12 @@ interface HeaderTextProps {
 	school: string | null | undefined;
 	title: string;
 }
-const HeaderText = (props: HeaderTextProps) => {
+const HeaderText = ({ school, title }: HeaderTextProps) => {
 	const navigator = useNavigate();
 	return (
 		<div className="HeaderTextDiv">
 			<div style={{ display: 'flex' }}>
-				<div className="schoolText">한국교통대학교</div>
+				<div className="schoolText">{school}</div>
 				{/* <div className="schoolText">{props.school}</div> */}
 				<div
 					style={{
@@ -28,7 +28,7 @@ const HeaderText = (props: HeaderTextProps) => {
 					/>
 				</div>
 			</div>
-			<div className="titleText">{props.title}</div>
+			<div className="titleText">{title}</div>
 		</div>
 	);
 };

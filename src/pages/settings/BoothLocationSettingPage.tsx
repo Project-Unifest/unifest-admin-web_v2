@@ -3,6 +3,7 @@ import { Booth } from '@/interfaces/interfaces';
 import { useEffect, useState } from 'react';
 
 import '@/styles/SettingPage.css';
+import { getAllFestivals } from '@/apis/festivalApi';
 
 var mapInstance: naver.maps.Map;
 type positionChangeEvent = {
@@ -11,9 +12,27 @@ type positionChangeEvent = {
 	_lat: number;
 	_lng: number;
 };
+
+type Festival = {
+	schoolId: number;
+	thumbnail: string;
+	schoolName: string;
+	region: string;
+	festivalName: string;
+	beginDate: string;
+	endDate: string;
+	latitude: number;
+	longitude: number;
+};
+
 const BoothLocationSettingPage = () => {
 	const [boothList, setBoothList] = useState<Booth[]>();
 	const [boothMarkerList, setBoothMarkerList] = useState<naver.maps.Marker[]>();
+
+	const [lat, setLat] = useState<number>(1);
+	const [lng, setLng] = useState<number>(1);
+	const schoolId = localStorage.getItem('schoolId');
+	const festivals: Festival[] = [];
 
 	useEffect(() => {
 		const _arr: naver.maps.Marker[] = [];
@@ -86,8 +105,18 @@ const BoothLocationSettingPage = () => {
 	useEffect(() => {
 		initMap();
 		//하드 코딩
-		getAllBooths('2').then((res) => {
+		getAllBooths(schoolId!).then((res) => {
 			setBoothList([...res.data.data]);
+		});
+		getAllFestivals().then((res) => {
+			[...res.data.data].forEach((value: Festival) => {
+				festivals.push(value);
+				console.log(value.schoolId, Number(schoolId));
+				if (value.schoolId === Number(schoolId)) {
+					setLat(value.latitude);
+					setLng(value.longitude);
+				}
+			});
 		});
 		setBoothMarkerList([]);
 	}, []);
@@ -99,7 +128,7 @@ const BoothLocationSettingPage = () => {
 				style: naver.maps.ZoomControlStyle.SMALL,
 				position: naver.maps.Position.TOP_RIGHT,
 			},
-			center: new naver.maps.LatLng(36.969868, 127.871726),
+			center: new naver.maps.LatLng(lat!, lng!),
 			zoom: 17,
 		};
 

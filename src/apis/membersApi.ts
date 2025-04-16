@@ -48,3 +48,13 @@ export const getMember = async (id: string) => {
 		throw new Error('getMember 에러');
 	}
 };
+
+export const getMembersMy = async () => {
+	try {
+		return await axiosAuthClient.get(
+			`${import.meta.env.VITE_REACT_APP_API_ROOT}/members/my`,
+		);
+	} catch (error) {
+		throw new Error('getMembersMy 에러');
+	}
+};

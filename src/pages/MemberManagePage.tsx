@@ -9,11 +9,11 @@ import { getMembers } from '@/apis/membersApi';
 import { Member } from '@/interfaces/interfaces';
 import searchIcon from '@/assets/search.svg';
 
-import schoolData from '@/school.json';
+import { SCHOOL_IDS } from '@/utils/constant';
 
 const MemberManage = () => {
 	//when user visit site first time.
-	let flag = false;
+
 	let schoolId = 0;
 
 	const navigator = useNavigate();
@@ -28,11 +28,7 @@ const MemberManage = () => {
 	const [schoolName, setSchoolName] = useState<string | null>();
 
 	useEffect(() => {
-		if (flag === false) {
-			flag = true;
-		} else {
-			fetchMembers();
-		}
+		fetchMembers();
 	}, [selectedRole]);
 
 	useEffect(() => {
@@ -41,7 +37,6 @@ const MemberManage = () => {
 	}, [memberList]);
 
 	useEffect(() => {
-		setSchoolName(localStorage.getItem('schoolName'));
 		fetchMembers();
 	}, []);
 
@@ -70,7 +65,10 @@ const MemberManage = () => {
 					setMemberList(res.data.data);
 					setLoading(false);
 					schoolId = res.data.data[0].schoolId;
-					localStorage.setItem('schoolName', schoolData.data[schoolId - 1]);
+
+					setSchoolName(SCHOOL_IDS[schoolId]);
+					localStorage.setItem('schoolName', SCHOOL_IDS[schoolId]);
+					localStorage.setItem('schoolId', schoolId.toString());
 				} else {
 					switch (res) {
 						case 403:
