@@ -62,11 +62,13 @@ const MemberManage = () => {
 			setLoading(true);
 			getMembers(selectedRole).then((res) => {
 				if (typeof res !== 'number' && res !== undefined) {
-					setMemberList(res.data.data);
-					setLoading(false);
 					getMembersMy().then((res) => {
 						schoolId = res.data.data.schoolId;
 					});
+					const temp = res.data.data;
+					temp.filter((value: any) => value.schoolId === schoolId);
+					setMemberList(res.data.data);
+					setLoading(false);
 
 					setSchoolName(SCHOOL_IDS[schoolId]);
 					localStorage.setItem('schoolName', SCHOOL_IDS[schoolId]);
