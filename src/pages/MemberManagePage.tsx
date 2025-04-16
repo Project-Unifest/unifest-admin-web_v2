@@ -66,8 +66,9 @@ const MemberManage = () => {
 						schoolId = res.data.data.schoolId;
 					});
 					const temp = res.data.data;
-					temp.filter((value: any) => value.schoolId === schoolId);
-					setMemberList(res.data.data);
+					setMemberList(
+						temp.filter((value: any) => value.schoolId === schoolId),
+					);
 					setLoading(false);
 
 					setSchoolName(SCHOOL_IDS[schoolId]);
