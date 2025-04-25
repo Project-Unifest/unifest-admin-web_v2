@@ -103,7 +103,6 @@ const BoothLocationSettingPage = () => {
 		boothMarkerList;
 	}, [boothList]);
 	useEffect(() => {
-		initMap();
 		//하드 코딩
 		getAllBooths(schoolId!).then((res) => {
 			setBoothList([...res.data.data]);
@@ -111,14 +110,16 @@ const BoothLocationSettingPage = () => {
 		getAllFestivals().then((res) => {
 			[...res.data.data].forEach((value: Festival) => {
 				festivals.push(value);
+				console.log(value);
 				console.log(value.schoolId, Number(schoolId));
 				if (value.schoolId === Number(schoolId)) {
 					setLat(value.latitude);
 					setLng(value.longitude);
 				}
 			});
+			setBoothMarkerList([]);
+			initMap();
 		});
-		setBoothMarkerList([]);
 	}, []);
 	const initMap = () => {
 		// 추가 옵션 설정
