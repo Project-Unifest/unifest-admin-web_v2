@@ -11,11 +11,10 @@ type StampBoothsQR = {
 const StampQRSettingPage = () => {
 	const [chkList, setChkList] = useState<StampBoothsQR[]>([]);
 	const qrList = useRef<(SVGSVGElement | null)[]>([]);
-	const schoolId = localStorage.getItem('schoolId');
+	const festivalId = localStorage.getItem('festivalId');
 
 	useEffect(() => {
-		//하드코딩
-		getAllStampBooths(schoolId!).then((res) => {
+		getAllStampBooths(festivalId!).then((res) => {
 			const _arr: StampBoothsQR[] = [];
 			res.data.data.forEach((value) => {
 				_arr.push({

@@ -13,7 +13,8 @@ type positionChangeEvent = {
 	_lng: number;
 };
 
-type Festival = {
+export type Festival = {
+	festivalId: number;
 	schoolId: number;
 	thumbnail: string;
 	schoolName: string;
@@ -32,6 +33,7 @@ const BoothLocationSettingPage = () => {
 	const [lat, setLat] = useState<number>(1);
 	const [lng, setLng] = useState<number>(1);
 	const schoolId = localStorage.getItem('schoolId');
+	const festivalId = localStorage.getItem('festivalId');
 	const festivals: Festival[] = [];
 
 	useEffect(() => {
@@ -104,7 +106,7 @@ const BoothLocationSettingPage = () => {
 	}, [boothList]);
 	useEffect(() => {
 		//하드 코딩
-		getAllBooths(schoolId!).then((res) => {
+		getAllBooths(festivalId!).then((res) => {
 			setBoothList([...res.data.data]);
 		});
 		getAllFestivals().then((res) => {

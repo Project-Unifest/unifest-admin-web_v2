@@ -10,6 +10,8 @@ import { Member } from '@/interfaces/interfaces';
 import searchIcon from '@/assets/search.svg';
 
 import { SCHOOL_IDS } from '@/utils/constant';
+import { getAllFestivals } from '@/apis/festivalApi';
+import { Festival } from './settings/BoothLocationSettingPage';
 
 const MemberManage = () => {
 	//when user visit site first time.
@@ -74,6 +76,13 @@ const MemberManage = () => {
 					setSchoolName(SCHOOL_IDS[schoolId]);
 					localStorage.setItem('schoolName', SCHOOL_IDS[schoolId]);
 					localStorage.setItem('schoolId', schoolId.toString());
+					const response = getAllFestivals().then((res) => {
+						[...res.data.data].forEach((value: Festival) => {
+							if (value.schoolId === Number(schoolId)) {
+								localStorage.setItem('festivalId', value.festivalId.toString());
+							}
+						});
+					});
 				} else {
 					switch (res) {
 						case 403:
