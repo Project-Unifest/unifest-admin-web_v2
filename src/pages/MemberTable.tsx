@@ -18,6 +18,7 @@ const MemberTable = ({
 	isOwnerChangePage?: boolean;
 }) => {
 	//const [members, setMembers] = useState([]);
+	console.log('11', members);
 
 	if (loading) {
 		return (
