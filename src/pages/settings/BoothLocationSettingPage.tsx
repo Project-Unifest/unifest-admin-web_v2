@@ -30,8 +30,6 @@ const BoothLocationSettingPage = () => {
 	const [boothList, setBoothList] = useState<Booth[]>();
 	const [boothMarkerList, setBoothMarkerList] = useState<naver.maps.Marker[]>();
 
-	const [lat, setLat] = useState<number>(1);
-	const [lng, setLng] = useState<number>(1);
 	const schoolId = localStorage.getItem('schoolId');
 	const festivalId = localStorage.getItem('festivalId');
 	const festivals: Festival[] = [];
@@ -112,16 +110,15 @@ const BoothLocationSettingPage = () => {
 		getAllFestivals().then((res) => {
 			[...res.data.data].forEach((value: Festival) => {
 				festivals.push(value);
+				console.log(value.schoolId, schoolId);
 				if (value.schoolId === Number(schoolId)) {
-					setLat(value.latitude);
-					setLng(value.longitude);
+					initMap(value.latitude, value.longitude);
 				}
 			});
 			setBoothMarkerList([]);
-			initMap();
 		});
 	}, []);
-	const initMap = () => {
+	const initMap = (lat: number, lng: number) => {
 		// 추가 옵션 설정
 		const mapOptions = {
 			zoomControl: true,
