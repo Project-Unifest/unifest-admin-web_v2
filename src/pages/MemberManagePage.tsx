@@ -78,7 +78,7 @@ const MemberManage = () => {
 					setSchoolName(SCHOOL_IDS[schoolId]);
 					localStorage.setItem('schoolName', SCHOOL_IDS[schoolId]);
 					localStorage.setItem('schoolId', schoolId.toString());
-					const response = getAllFestivals().then((res) => {
+					getAllFestivals().then((res) => {
 						[...res.data.data].forEach((value: Festival) => {
 							if (value.schoolId === Number(schoolId)) {
 								localStorage.setItem('festivalId', value.festivalId.toString());
