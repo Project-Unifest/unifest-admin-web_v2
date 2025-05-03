@@ -37,14 +37,7 @@ const SelectOwnerPage = () => {
 		if (selectedRole !== undefined) {
 			setLoading(true);
 			getMembers(selectedRole).then((res) => {
-				console.log(res, schoolId);
 				if (typeof res !== 'number' && res !== undefined) {
-					console.log(
-						res.data.data.map((value: any) => {
-							console.log(value.schoolId);
-							console.log(schoolId);
-						}),
-					);
 					setMemberList(
 						res.data.data.filter(
 							(value: any) => value.schoolId === Number(schoolId!),
@@ -64,7 +57,6 @@ const SelectOwnerPage = () => {
 	};
 
 	useEffect(() => {
-		console.log(memberList, '@@');
 		setSearchList(memberList);
 	}, [memberList]);
 
