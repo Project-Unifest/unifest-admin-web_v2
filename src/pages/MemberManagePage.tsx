@@ -16,8 +16,6 @@ import { Festival } from './settings/BoothLocationSettingPage';
 const MemberManage = () => {
 	//when user visit site first time.
 
-	let schoolId = 0;
-
 	const navigator = useNavigate();
 	const [selectedRole, setSelectedRole] = useState<string | undefined>('');
 	const [loading, setLoading] = useState(true);
@@ -28,6 +26,7 @@ const MemberManage = () => {
 	const [denyCnt, setDenyCnt] = useState<number>(0);
 	const [search, setSearch] = useState<string>();
 	const [schoolName, setSchoolName] = useState<string | null>();
+	const [schoolId, setSchoolId] = useState<number>(0);
 
 	useEffect(() => {
 		fetchMembers();
@@ -40,6 +39,12 @@ const MemberManage = () => {
 
 	useEffect(() => {
 		fetchMembers();
+	}, [schoolId]);
+
+	useEffect(() => {
+		getMembersMy().then((res) => {
+			setSchoolId(res.data.data.schoolId);
+		});
 	}, []);
 
 	useEffect(() => {
@@ -64,9 +69,6 @@ const MemberManage = () => {
 			setLoading(true);
 			getMembers(selectedRole).then((res) => {
 				if (typeof res !== 'number' && res !== undefined) {
-					getMembersMy().then((res) => {
-						schoolId = res.data.data.schoolId;
-					});
 					const temp = res.data.data;
 					setMemberList(
 						temp.filter((value: any) => value.schoolId === schoolId),
