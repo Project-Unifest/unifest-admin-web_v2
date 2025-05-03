@@ -19,13 +19,14 @@ const SelectOwnerPage = () => {
 	const [selectedRole, setSelectedRole] = useState<string | undefined>('');
 	const [search, setSearch] = useState<string>();
 	const [data, setData] = useState<Booth>();
-	const [schoolId, setSchoolId] = useState<string | undefined>();
+
 	const [boothId, setBoothId] = useState<string | undefined>();
 	const [memberList, setMemberList] = useState<Member[]>();
 	const [searchList, setSearchList] = useState<Member[]>();
 	const [loading, setLoading] = useState<boolean>(true);
 
 	const params = useParams();
+	const schoolId = localStorage.getItem('schoolId');
 	const navigator = useNavigate();
 
 	const handleRoleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -37,7 +38,11 @@ const SelectOwnerPage = () => {
 			setLoading(true);
 			getMembers(selectedRole).then((res) => {
 				if (typeof res !== 'number' && res !== undefined) {
-					setMemberList(res.data.data);
+					setMemberList(
+						res.data.data.filter(
+							(value: any) => value.schoolId === Number(schoolId!),
+						),
+					);
 					setLoading(false);
 				} else {
 					switch (res) {
@@ -91,7 +96,7 @@ const SelectOwnerPage = () => {
 	useEffect(() => {
 		fetchMembers();
 		setSchoolName(localStorage.getItem('schoolName'));
-		setSchoolId(params.schoolId);
+
 		setBoothId(params.boothId);
 	}, []);
 
@@ -169,7 +174,7 @@ const SelectOwnerPage = () => {
 						loading={loading}
 						members={searchList}
 						fetchMembers={fetchMembers}
-						schoolId={parseInt(schoolId)}
+						schoolId={parseInt(schoolId!)}
 						boothId={parseInt(boothId!)}
 						isOwnerChangePage={true}
 					/>
