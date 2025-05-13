@@ -53,7 +53,7 @@ const BoothManagePage = () => {
 					id={id}
 					email={email}
 					phoneNum={phoneNum}
-					role={role}
+					memberRole={role}
 					hrEnable={false}
 					isOwnerChangePage={false}
 				/>

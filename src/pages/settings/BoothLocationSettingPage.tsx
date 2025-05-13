@@ -45,7 +45,7 @@ const BoothLocationSettingPage = () => {
 			switch (value.category) {
 				case 'BAR':
 					temp.setIcon(
-						'https://unifest-dev-bucket.s3.ap-northeast-2.amazonaws.com/58c972ff-183c-4c6e-adb0-52fe0fadbe4d.svg%2Bxml',
+						'https://unifest-prod-bucket.s3.ap-northeast-2.amazonaws.com/1153fda4-0f4e-443e-833a-e19e463627ad.svg%2Bxml',
 					);
 					break;
 				case 'FOOD':
@@ -55,17 +55,17 @@ const BoothLocationSettingPage = () => {
 					break;
 				case 'EVENT':
 					temp.setIcon(
-						'https://unifest-dev-bucket.s3.ap-northeast-2.amazonaws.com/a0e6b03c-d2e5-44a0-822b-26c87c98c217.svg%2Bxml',
+						'https://unifest-prod-bucket.s3.ap-northeast-2.amazonaws.com/dbcf244f-32fe-4bd2-be39-1db13f2f7d16.svg%2Bxml',
 					);
 					break;
 				case 'NORMAL':
 					temp.setIcon(
-						'https://unifest-dev-bucket.s3.ap-northeast-2.amazonaws.com/a092d342-9e06-426b-9d01-59e9ae944fcb.svg%2Bxml',
+						'https://unifest-prod-bucket.s3.ap-northeast-2.amazonaws.com/951adb8c-ee7f-4db3-9a54-5a9bff50d013.svg%2Bxml',
 					);
 					break;
 				default:
 					temp.setIcon(
-						'https://unifest-dev-bucket.s3.ap-northeast-2.amazonaws.com/58c972ff-183c-4c6e-adb0-52fe0fadbe4d.svg%2Bxml',
+						'https://unifest-prod-bucket.s3.ap-northeast-2.amazonaws.com/951adb8c-ee7f-4db3-9a54-5a9bff50d013.svg%2Bxml',
 					);
 					break;
 			}

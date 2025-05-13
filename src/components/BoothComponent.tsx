@@ -18,6 +18,7 @@ const BoothComponent = ({
 	setCheckList?: Function;
 }) => {
 	const [checked, setChecked] = useState<boolean>(false);
+
 	useEffect(() => {
 		chkList?.has(data.id) && setChecked(true);
 	}, [chkList]);
@@ -25,6 +26,11 @@ const BoothComponent = ({
 
 	const changeOwnerHandler = () => {
 		navigator(`/changeowner/${schoolId}/${data.id}`);
+	};
+
+	const readBoothHandler = () => {
+		//TODO : 부스 열람
+		navigator(`/booth-detail/${data.id}`);
 	};
 
 	const checkboxHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,6 +74,9 @@ const BoothComponent = ({
 					<div style={{ flexGrow: 1 }}>
 						<div className="btnDiv3" onClick={changeOwnerHandler}>
 							소유자 이전
+						</div>
+						<div className="btnDiv3" onClick={readBoothHandler}>
+							부스 정보
 						</div>
 					</div>
 				)}

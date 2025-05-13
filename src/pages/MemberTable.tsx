@@ -45,9 +45,10 @@ const MemberTable = ({
 					<MemberComponent
 						key={value.id}
 						id={value.id.toString()}
+						memberRole={value.memberRole}
 						email={value.email}
 						phoneNum={value.phoneNum}
-						role={value.memberRole}
+						booths={value.booths}
 						fetchMembers={fetchMembers}
 						schoolId={schoolId}
 						boothId={boothId}

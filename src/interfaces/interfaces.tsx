@@ -16,10 +16,18 @@ export interface Booth {
 	location: string;
 	latitude: number;
 	longitude: number;
-	menus: [];
+	menus: Menu[];
 	enabled: boolean;
 	waitingEnabled: boolean;
 	stampEnabled: boolean;
 	openTime: string;
 	closeTime: string;
+}
+
+export interface Menu {
+	id: number;
+	name: string;
+	price: number;
+	imgUrl: string;
+	menuStatus: string;
 }
