@@ -2,12 +2,14 @@ import { patchMember } from '@/apis/membersApi';
 import '../styles/MemberComponent.style.css';
 import { useNavigate } from 'react-router-dom';
 import { giveBooth } from '@/apis/boothApi';
+import { Booth } from '@/interfaces/interfaces';
 
 const MemberComponent = ({
 	id,
+	memberRole,
 	email,
 	phoneNum,
-	role,
+	booths,
 	fetchMembers,
 	hrEnable,
 	schoolId,
@@ -15,9 +17,10 @@ const MemberComponent = ({
 	isOwnerChangePage,
 }: {
 	id: string;
+	memberRole: string;
 	email: string;
 	phoneNum: string;
-	role: string;
+	booths?: Booth[];
 	fetchMembers?: Function;
 	hrEnable?: boolean;
 	schoolId?: number;
@@ -25,6 +28,8 @@ const MemberComponent = ({
 	isOwnerChangePage: boolean;
 }) => {
 	const navigator = useNavigate();
+	const boothListString =
+		booths && booths.map((value) => value.name).join(', ');
 	const GreenUID = () => {
 		return (
 			<>
@@ -106,7 +111,7 @@ const MemberComponent = ({
 								VERIFIED: <GreenUID />,
 								DENIED: <RedUID />,
 								PENDING: <GrayUID />,
-							}[role]
+							}[memberRole]
 						}
 						{/* <div className="uid">{id}</div> */}
 					</div>
@@ -163,8 +168,14 @@ const MemberComponent = ({
 								<button>거부</button>
 							</div>
 							{hrEnable || hrEnable === undefined ? (
-								<div className="btnDiv2" onClick={clickManageHandler}>
+								<div
+									className="btnDiv2 tooltip-container"
+									onClick={clickManageHandler}
+								>
 									<button>관리</button>
+									<div className="tooltip-message">
+										{boothListString ?? '생성한 부스 없음'}
+									</div>
 								</div>
 							) : (
 								<></>

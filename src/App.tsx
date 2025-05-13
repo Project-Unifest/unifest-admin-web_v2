@@ -5,7 +5,7 @@ import BoothManagePage from '@/pages/BoothManagePage';
 import MemberManage from '@/pages/MemberManagePage';
 import SettingPage from './pages/SettingPage';
 import SelectOwnerPage from './pages/SelectOwnerPage';
-
+import BoothDetailPage from './pages/BoothDetailPage';
 function App() {
 	const router = createBrowserRouter(
 		[
@@ -20,6 +20,10 @@ function App() {
 			{
 				path: '/booth/:schoolId/:memberId/',
 				element: <BoothManagePage />,
+			},
+			{
+				path: '/booth-detail/:boothId/',
+				element: <BoothDetailPage />,
 			},
 			{
 				path: '/setting',
