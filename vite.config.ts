@@ -11,7 +11,7 @@ export default defineConfig({
 			'@': path.resolve(__dirname, './src'),
 		},
 	},
-	base: '/unifest-admin-web_v2/',
+	base: '/unifest-admin-web_v2',
 	server: {
 		port: 3000,
 	},
