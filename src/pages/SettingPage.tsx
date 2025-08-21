@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import '@/styles/SettingPage.css';
-import StampSettingPage from './settings/StampSetting';
-import StampQRSettingPage from './settings/StampQRSettingPage';
+// import StampSettingPage from './settings/StampSetting';
+// import StampQRSettingPage from './settings/StampQRSettingPage';
 import BoothLocationSettingPage from './settings/BoothLocationSettingPage';
 
 const SettingPage = () => {
