@@ -28,8 +28,8 @@ const MemberComponent = ({
 	isOwnerChangePage: boolean;
 }) => {
 	const navigator = useNavigate();
-	const boothListString =
-		booths && booths.map((value) => value.name).join(', ');
+	// const boothListString =
+	// 	booths && booths.map((value) => value.name).join(', ');
 	const GreenUID = () => {
 		return (
 			<>
