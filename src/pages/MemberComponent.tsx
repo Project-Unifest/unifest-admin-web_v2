@@ -173,9 +173,9 @@ const MemberComponent = ({
 									onClick={clickManageHandler}
 								>
 									<button>관리</button>
-									<div className="tooltip-message">
+									{/* <div className="tooltip-message">
 										{boothListString ?? '생성한 부스 없음'}
-									</div>
+									</div> */}
 								</div>
 							) : (
 								<></>
