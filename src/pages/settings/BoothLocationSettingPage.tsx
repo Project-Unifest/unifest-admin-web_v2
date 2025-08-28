@@ -91,10 +91,19 @@ const BoothLocationSettingPage = () => {
 				temp,
 				'position_changed',
 				(e: positionChangeEvent) => {
-					moveBooth(value.id, e._lat, e._lng);
-					if (infowindow.getMap()) {
-						infowindow.close();
-					}
+					moveBooth(value.id, e._lat, e._lng)
+						.then(() => {
+							if (infowindow.getMap()) {
+								infowindow.close();
+							}
+						})
+						.catch((error) => {
+							console.error('부스 이동 실패:', error); // 원본 에러 정보를 볼 수 있습니다.
+							alert(
+								'부스 이동 중 에러가 발생하였습니다.\n지속적으로 해당 현상이 발생하는 경우 로그아웃을 하고 시도해보시기 바랍니다.',
+							);
+							window.location.reload();
+						});
 				},
 			);
 			_arr?.push(temp);
