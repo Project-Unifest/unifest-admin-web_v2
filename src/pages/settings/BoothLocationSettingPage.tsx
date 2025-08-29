@@ -4,8 +4,10 @@ import { useEffect, useState } from 'react';
 
 import '@/styles/SettingPage.css';
 import { getAllFestivals } from '@/apis/festivalApi';
+import { APIProvider, Map } from '@vis.gl/react-google-maps';
+import { CustomMarker } from '@/components/CustomMarker';
 
-var mapInstance: naver.maps.Map;
+// var mapInstance: naver.maps.Map;
 type positionChangeEvent = {
 	x: number;
 	y: number;
@@ -28,18 +30,31 @@ export type Festival = {
 
 const BoothLocationSettingPage = () => {
 	const [boothList, setBoothList] = useState<Booth[]>();
-	const [boothMarkerList, setBoothMarkerList] = useState<naver.maps.Marker[]>();
+	const [lat, setLat] = useState<number>(37.450696);
+	const [lng, setLng] = useState<number>(127.128849);
+
+	const mapInstance = new google.maps.Map(
+		document.getElementById('map') as HTMLElement,
+		{
+			center: { lat: lat, lng: lng },
+			zoom: 20,
+			gestureHandling: 'greedy',
+			disableDefaultUI: true,
+		},
+	);
+	// @TODO
+	// const [boothMarkerList, setBoothMarkerList] = useState<naver.maps.Marker[]>();
 
 	const schoolId = localStorage.getItem('schoolId');
 	const festivalId = localStorage.getItem('festivalId');
 	const festivals: Festival[] = [];
 
-	useEffect(() => {
-		const _arr: naver.maps.Marker[] = [];
+	const map = new // @TODO
+	google.maps.useEffect(() => {
+		// const _arr: google.maps.Marker[] = [];
 		boothList?.forEach((value) => {
-			const temp = new naver.maps.Marker({
-				position: new naver.maps.LatLng(value.latitude, value.longitude),
-				map: mapInstance,
+			const temp = new google.maps.Marker({
+				position: new google.maps.LatLng(value.latitude, value.longitude),
 				draggable: true,
 			});
 			switch (value.category) {
@@ -76,12 +91,14 @@ const BoothLocationSettingPage = () => {
 				`	<p>${value.description}</p>`,
 				`</div>`,
 			].join('');
-			var infowindow = new naver.maps.InfoWindow({
+			var infowindow = new google.maps.InfoWindow({
 				content: contentString,
 			});
-			naver.maps.Event.addListener(temp, 'mouseover', () => {
+
+			temp.addListener('mouseover', () => {
 				infowindow.open(mapInstance, temp);
 			});
+			google.maps.Event.addListener(temp);
 			naver.maps.Event.addListener(temp, 'mouseout', () => {
 				if (infowindow.getMap()) {
 					infowindow.close();
@@ -102,6 +119,7 @@ const BoothLocationSettingPage = () => {
 		setBoothMarkerList(_arr);
 		boothMarkerList;
 	}, [boothList]);
+
 	useEffect(() => {
 		//하드 코딩
 		getAllBooths(festivalId!).then((res) => {
@@ -112,31 +130,40 @@ const BoothLocationSettingPage = () => {
 				festivals.push(value);
 				console.log(value.schoolId, schoolId);
 				if (value.schoolId === Number(schoolId)) {
-					initMap(value.latitude, value.longitude);
+					setLat(value.latitude);
+					setLng(value.longitude);
+					// initMap(value.latitude, value.longitude);
 				}
 			});
 			setBoothMarkerList([]);
 		});
 	}, []);
-	const initMap = (lat: number, lng: number) => {
-		// 추가 옵션 설정
-		const mapOptions = {
-			zoomControl: true,
-			zoomControlOptions: {
-				style: naver.maps.ZoomControlStyle.SMALL,
-				position: naver.maps.Position.TOP_RIGHT,
-			},
-			center: new naver.maps.LatLng(lat!, lng!),
-			zoom: 17,
-		};
+	// const initMap = (lat: number, lng: number) => {
+	// 	// 추가 옵션 설정
+	// 	const mapOptions = {
+	// 		zoomControl: true,
+	// 		zoomControlOptions: {
+	// 			style: naver.maps.ZoomControlStyle.SMALL,
+	// 			position: naver.maps.Position.TOP_RIGHT,
+	// 		},
+	// 		center: new naver.maps.LatLng(lat!, lng!),
+	// 		zoom: 17,
+	// 	};
 
-		// 지도 초기화 확인
-		mapInstance = new naver.maps.Map('map', mapOptions);
-	};
-	return true ? (
-		<div id="map" style={{ width: '100%', height: '1000px' }}></div>
-	) : (
-		<></>
+	// 	// 지도 초기화 확인
+	// 	mapInstance = new naver.maps.Map('map', mapOptions);
+	// };
+	// return true ? (
+	// 	<div id="map" style={{ width: '100%', height: '1000px' }}></div>
+	// ) : (
+	// 	<></>
+	// );
+	return (
+		<>
+			<APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
+				<div id="map" style={{ width: '100%', height: '100vh' }}></div>
+			</APIProvider>
+		</>
 	);
 };
 
