@@ -47,7 +47,6 @@ const BoothLocationSettingPage = () => {
 		getAllFestivals().then((res) => {
 			[...res.data.data].forEach((value: Festival) => {
 				festivals.push(value);
-				console.log(value.schoolId, schoolId);
 				if (value.schoolId === Number(schoolId)) {
 					setLat(value.latitude);
 					setLng(value.longitude);
@@ -63,7 +62,6 @@ const BoothLocationSettingPage = () => {
 	const festivalId = localStorage.getItem('festivalId');
 	const festivals: Festival[] = [];
 	const onBoothMove = (id: number, lat: number, lng: number) => {
-		console.log('AAA');
 		// `map`을 사용하여 새로운 배열을 생성합니다.
 		const updatedBoothList = boothList.map((booth) => {
 			// id가 일치하는 부스를 찾습니다.
@@ -82,9 +80,6 @@ const BoothLocationSettingPage = () => {
 		// 새롭게 만들어진 배열로 상태를 갱신합니다.
 		setBoothList(updatedBoothList);
 	};
-	useEffect(() => {
-		console.log(boothList);
-	}, [boothList]);
 	return (
 		<>
 			<APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
