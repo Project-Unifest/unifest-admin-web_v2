@@ -4,8 +4,15 @@ import { useEffect, useState } from 'react';
 
 import '@/styles/SettingPage.css';
 import { getAllFestivals } from '@/apis/festivalApi';
+import {
+	APIProvider,
+	Map,
+	MapMouseEvent,
+	Marker,
+} from '@vis.gl/react-google-maps';
+import { BoothMarker } from '@/components/BoothMarker';
 
-var mapInstance: naver.maps.Map;
+// var mapInstance: naver.maps.Map;
 type positionChangeEvent = {
 	x: number;
 	y: number;
@@ -26,91 +33,12 @@ export type Festival = {
 	longitude: number;
 };
 
+let mapInstance: google.maps.Map;
+
 const BoothLocationSettingPage = () => {
-	const [boothList, setBoothList] = useState<Booth[]>();
-	const [boothMarkerList, setBoothMarkerList] = useState<naver.maps.Marker[]>();
-
-	const schoolId = localStorage.getItem('schoolId');
-	const festivalId = localStorage.getItem('festivalId');
-	const festivals: Festival[] = [];
-
-	useEffect(() => {
-		const _arr: naver.maps.Marker[] = [];
-		boothList?.forEach((value) => {
-			const temp = new naver.maps.Marker({
-				position: new naver.maps.LatLng(value.latitude, value.longitude),
-				map: mapInstance,
-				draggable: true,
-			});
-			switch (value.category) {
-				case 'BAR':
-					temp.setIcon(
-						'https://unifest-prod-bucket.s3.ap-northeast-2.amazonaws.com/1153fda4-0f4e-443e-833a-e19e463627ad.svg%2Bxml',
-					);
-					break;
-				case 'FOOD':
-					temp.setIcon(
-						'https://unifest-dev-bucket.s3.ap-northeast-2.amazonaws.com/9cda2ca7-aaf4-4aa2-997c-69274d5c05b5.svg%2Bxml',
-					);
-					break;
-				case 'EVENT':
-					temp.setIcon(
-						'https://unifest-prod-bucket.s3.ap-northeast-2.amazonaws.com/dbcf244f-32fe-4bd2-be39-1db13f2f7d16.svg%2Bxml',
-					);
-					break;
-				case 'NORMAL':
-					temp.setIcon(
-						'https://unifest-prod-bucket.s3.ap-northeast-2.amazonaws.com/951adb8c-ee7f-4db3-9a54-5a9bff50d013.svg%2Bxml',
-					);
-					break;
-				default:
-					temp.setIcon(
-						'https://unifest-prod-bucket.s3.ap-northeast-2.amazonaws.com/951adb8c-ee7f-4db3-9a54-5a9bff50d013.svg%2Bxml',
-					);
-					break;
-			}
-
-			const contentString = [
-				`<div className="markerInfo">`,
-				`	<h3>${value.name}</h3>`,
-				`	<p>${value.description}</p>`,
-				`</div>`,
-			].join('');
-			var infowindow = new naver.maps.InfoWindow({
-				content: contentString,
-			});
-			naver.maps.Event.addListener(temp, 'mouseover', () => {
-				infowindow.open(mapInstance, temp);
-			});
-			naver.maps.Event.addListener(temp, 'mouseout', () => {
-				if (infowindow.getMap()) {
-					infowindow.close();
-				}
-			});
-			naver.maps.Event.addListener(
-				temp,
-				'position_changed',
-				(e: positionChangeEvent) => {
-					moveBooth(value.id, e._lat, e._lng)
-						.then(() => {
-							if (infowindow.getMap()) {
-								infowindow.close();
-							}
-						})
-						.catch((error) => {
-							console.error('부스 이동 실패:', error); // 원본 에러 정보를 볼 수 있습니다.
-							alert(
-								'부스 이동 중 에러가 발생하였습니다.\n지속적으로 해당 현상이 발생하는 경우 로그아웃을 하고 시도해보시기 바랍니다.',
-							);
-							window.location.reload();
-						});
-				},
-			);
-			_arr?.push(temp);
-		});
-		setBoothMarkerList(_arr);
-		boothMarkerList;
-	}, [boothList]);
+	const [boothList, setBoothList] = useState<Booth[]>([]);
+	const [lat, setLat] = useState<number>(37.450696);
+	const [lng, setLng] = useState<number>(127.128849);
 	useEffect(() => {
 		//하드 코딩
 		getAllBooths(festivalId!).then((res) => {
@@ -119,33 +47,66 @@ const BoothLocationSettingPage = () => {
 		getAllFestivals().then((res) => {
 			[...res.data.data].forEach((value: Festival) => {
 				festivals.push(value);
-				console.log(value.schoolId, schoolId);
 				if (value.schoolId === Number(schoolId)) {
-					initMap(value.latitude, value.longitude);
+					setLat(value.latitude);
+					setLng(value.longitude);
+					// initMap(value.latitude, value.longitude);
 				}
 			});
-			setBoothMarkerList([]);
 		});
 	}, []);
-	const initMap = (lat: number, lng: number) => {
-		// 추가 옵션 설정
-		const mapOptions = {
-			zoomControl: true,
-			zoomControlOptions: {
-				style: naver.maps.ZoomControlStyle.SMALL,
-				position: naver.maps.Position.TOP_RIGHT,
-			},
-			center: new naver.maps.LatLng(lat!, lng!),
-			zoom: 17,
-		};
 
-		// 지도 초기화 확인
-		mapInstance = new naver.maps.Map('map', mapOptions);
+	// @TODO
+
+	const schoolId = localStorage.getItem('schoolId');
+	const festivalId = localStorage.getItem('festivalId');
+	const festivals: Festival[] = [];
+	const onBoothMove = (id: number, lat: number, lng: number) => {
+		// `map`을 사용하여 새로운 배열을 생성합니다.
+		const updatedBoothList = boothList.map((booth) => {
+			// id가 일치하는 부스를 찾습니다.
+			if (booth.id === id) {
+				// 새로운 lat와 lng를 가진 새 객체를 반환합니다.
+				return {
+					...booth, // 기존 부스의 나머지 속성들을 복사
+					latitude: lat,
+					longitude: lng,
+				};
+			}
+			// id가 일치하지 않으면 기존 부스를 그대로 반환합니다.
+			return booth;
+		});
+
+		// 새롭게 만들어진 배열로 상태를 갱신합니다.
+		setBoothList(updatedBoothList);
 	};
-	return true ? (
-		<div id="map" style={{ width: '100%', height: '1000px' }}></div>
-	) : (
-		<></>
+	return (
+		<>
+			<APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
+				<Map
+					mapId={import.meta.env.VITE_MAP_API_KEY}
+					style={{ width: '100%', height: '80vh' }}
+					defaultCenter={{ lat: lat, lng: lng }}
+					defaultZoom={20}
+					gestureHandling={'greedy'}
+				>
+					{boothList?.map((value) => (
+						<BoothMarker
+							key={value.id}
+							id={value.id}
+							markerLat={value.latitude}
+							markerLng={value.longitude}
+							name={value.name}
+							desc={value.description}
+							category={value.category}
+							img={value.thumbnail}
+							onBoothMove={onBoothMove}
+						/>
+					))}
+				</Map>
+				{/* <div id="map" style={{ width: '100%', height: '100vh' }}></div> */}
+			</APIProvider>
+		</>
 	);
 };
 
