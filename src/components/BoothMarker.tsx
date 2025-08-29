@@ -29,6 +29,7 @@ export const BoothMarker = ({
 	desc,
 	category,
 	img,
+	onBoothMove,
 }: {
 	id: number;
 	markerLat: number;
@@ -37,11 +38,13 @@ export const BoothMarker = ({
 	desc: string;
 	category: string;
 	img: string;
+	onBoothMove: (id: number, lat: number, lng: number) => void;
 }) => {
 	const [infowindowOpen, setInfowindowOpen] = useState(false);
 	const [markerRef, marker] = useAdvancedMarkerRef();
 
 	const icon = getIconUrl(category);
+
 	return (
 		<>
 			<AdvancedMarker
@@ -52,7 +55,20 @@ export const BoothMarker = ({
 					const newPosition = marker?.position;
 					if (newPosition) {
 						// moveBooth 함수 호출
-						moveBooth(id, newPosition.lat as number, newPosition.lng as number);
+						moveBooth(id, newPosition.lat as number, newPosition.lng as number)
+							.then(() => {
+								onBoothMove(
+									id,
+									newPosition.lat as number,
+									newPosition.lng as number,
+								);
+							})
+							.catch((error) => {
+								console.error('부스 이동 실패:', error); // 원본 에러 정보를 볼 수 있습니다.
+								alert(
+									'부스 이동 중 에러가 발생하였습니다.\n지속적으로 해당 현상이 발생하는 경우 로그아웃을 하고 시도해보시기 바랍니다.',
+								);
+							});
 					}
 				}}
 				position={{ lat: markerLat, lng: markerLng }}

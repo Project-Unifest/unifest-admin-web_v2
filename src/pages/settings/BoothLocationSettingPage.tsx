@@ -36,7 +36,7 @@ export type Festival = {
 let mapInstance: google.maps.Map;
 
 const BoothLocationSettingPage = () => {
-	const [boothList, setBoothList] = useState<Booth[]>();
+	const [boothList, setBoothList] = useState<Booth[]>([]);
 	const [lat, setLat] = useState<number>(37.450696);
 	const [lng, setLng] = useState<number>(127.128849);
 	useEffect(() => {
@@ -62,7 +62,29 @@ const BoothLocationSettingPage = () => {
 	const schoolId = localStorage.getItem('schoolId');
 	const festivalId = localStorage.getItem('festivalId');
 	const festivals: Festival[] = [];
+	const onBoothMove = (id: number, lat: number, lng: number) => {
+		console.log('AAA');
+		// `map`을 사용하여 새로운 배열을 생성합니다.
+		const updatedBoothList = boothList.map((booth) => {
+			// id가 일치하는 부스를 찾습니다.
+			if (booth.id === id) {
+				// 새로운 lat와 lng를 가진 새 객체를 반환합니다.
+				return {
+					...booth, // 기존 부스의 나머지 속성들을 복사
+					latitude: lat,
+					longitude: lng,
+				};
+			}
+			// id가 일치하지 않으면 기존 부스를 그대로 반환합니다.
+			return booth;
+		});
 
+		// 새롭게 만들어진 배열로 상태를 갱신합니다.
+		setBoothList(updatedBoothList);
+	};
+	useEffect(() => {
+		console.log(boothList);
+	}, [boothList]);
 	return (
 		<>
 			<APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
@@ -83,6 +105,7 @@ const BoothLocationSettingPage = () => {
 							desc={value.description}
 							category={value.category}
 							img={value.thumbnail}
+							onBoothMove={onBoothMove}
 						/>
 					))}
 				</Map>
