@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import '@/styles/SettingPage.css';
 import { getAllFestivals } from '@/apis/festivalApi';
-import { APIProvider, Map } from '@vis.gl/react-google-maps';
+import { APIProvider, Map, MapMouseEvent } from '@vis.gl/react-google-maps';
 import { CustomMarker } from '@/components/CustomMarker';
 
 // var mapInstance: naver.maps.Map;
@@ -28,30 +28,49 @@ export type Festival = {
 	longitude: number;
 };
 
+var mapInstance: google.maps.Map;
 const BoothLocationSettingPage = () => {
 	const [boothList, setBoothList] = useState<Booth[]>();
 	const [lat, setLat] = useState<number>(37.450696);
 	const [lng, setLng] = useState<number>(127.128849);
 
-	const mapInstance = new google.maps.Map(
-		document.getElementById('map') as HTMLElement,
-		{
-			center: { lat: lat, lng: lng },
-			zoom: 20,
-			gestureHandling: 'greedy',
-			disableDefaultUI: true,
-		},
-	);
+	useEffect(() => {
+		// google.maps 객체가 존재하는지 확인
+		if (window.google && window.google.maps) {
+			// API가 로드되면 지도 인스턴스 생성
+			mapInstance = new window.google.maps.Map(
+				document.getElementById('map') as HTMLElement,
+				{
+					center: { lat: lat, lng: lng },
+					zoom: 20,
+					gestureHandling: 'greedy',
+				},
+			);
+		} else {
+			// API가 아직 로드되지 않았으면 콘솔에 알림 (선택 사항)
+			console.warn('Google Maps API is not loaded yet.');
+		}
+		// mapInstance = new google.maps.Map(
+		// 	document.getElementById('map') as HTMLElement,
+		// 	{
+		// 		center: { lat: lat, lng: lng },
+		// 		zoom: 20,
+		// 		gestureHandling: 'greedy',
+		// 	},
+		// );
+	}, []);
+
 	// @TODO
-	// const [boothMarkerList, setBoothMarkerList] = useState<naver.maps.Marker[]>();
+	const [boothMarkerList, setBoothMarkerList] =
+		useState<google.maps.Marker[]>();
 
 	const schoolId = localStorage.getItem('schoolId');
 	const festivalId = localStorage.getItem('festivalId');
 	const festivals: Festival[] = [];
 
-	const map = new // @TODO
-	google.maps.useEffect(() => {
-		// const _arr: google.maps.Marker[] = [];
+	// @TODO
+	useEffect(() => {
+		const _arr: google.maps.Marker[] = [];
 		boothList?.forEach((value) => {
 			const temp = new google.maps.Marker({
 				position: new google.maps.LatLng(value.latitude, value.longitude),
@@ -98,22 +117,18 @@ const BoothLocationSettingPage = () => {
 			temp.addListener('mouseover', () => {
 				infowindow.open(mapInstance, temp);
 			});
-			google.maps.Event.addListener(temp);
-			naver.maps.Event.addListener(temp, 'mouseout', () => {
-				if (infowindow.getMap()) {
+
+			temp.addListener('mouseout', () => {
+				if (infowindow.isOpen) {
 					infowindow.close();
 				}
 			});
-			naver.maps.Event.addListener(
-				temp,
-				'position_changed',
-				(e: positionChangeEvent) => {
-					moveBooth(value.id, e._lat, e._lng);
-					if (infowindow.getMap()) {
-						infowindow.close();
-					}
-				},
-			);
+			temp.addListener('position_changed', (e: MapMouseEvent) => {
+				moveBooth(value.id, e.detail.latLng?.lat!, e.detail.latLng?.lng!);
+				if (infowindow.isOpen) {
+					infowindow.close();
+				}
+			});
 			_arr?.push(temp);
 		});
 		setBoothMarkerList(_arr);
