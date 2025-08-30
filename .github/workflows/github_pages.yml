@@ -48,7 +48,7 @@ jobs:
         env:
           VITE_API_BACK_URL: ${{ secrets.VITE_API_BACK_URL }}
           VITE_MAP_API_KEY: ${{ secrets.VITE_MAP_API_KEY }}
-          VITE_GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+          VITE_GOOGLE_MAPS_API_KEY: ${{ secrets.VITE_GOOGLE_MAPS_API_KEY }}
       - name: Build
         run: npm run build
         
