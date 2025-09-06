@@ -10,7 +10,7 @@ import BoothLocationSettingPage from './settings/BoothLocationSettingPage';
 
 const SettingPage = () => {
 	// const tabList = ['스탬프 설정', '스탬프 QR 생성', '부스 위치 수정'];
-	const tabList = ['부스 위치 수정'];
+	const tabList = ['부스 위치 수정', '공지사항 전파'];
 	const [schoolName, setSchoolName] = useState<string | null>();
 	const [selectedTab, setSelectedTab] = useState<number>(0);
 
