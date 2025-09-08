@@ -2,7 +2,7 @@ import { axiosAuthClient } from './axios';
 
 export const postMegaphone = async (content: string) => {
 	const data = {
-		boothId: 1,
+		boothId: 710,
 		msgBody: content,
 	};
 	try {
