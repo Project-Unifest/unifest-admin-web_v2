@@ -7,10 +7,11 @@ import '@/styles/SettingPage.css';
 // import StampSettingPage from './settings/StampSetting';
 // import StampQRSettingPage from './settings/StampQRSettingPage';
 import BoothLocationSettingPage from './settings/BoothLocationSettingPage';
+import MegaphoneSettingPage from './settings/MegaphoneSettingPage';
 
 const SettingPage = () => {
 	// const tabList = ['스탬프 설정', '스탬프 QR 생성', '부스 위치 수정'];
-	const tabList = ['부스 위치 수정'];
+	const tabList = ['부스 위치 수정', '공지사항 전파'];
 	const [schoolName, setSchoolName] = useState<string | null>();
 	const [selectedTab, setSelectedTab] = useState<number>(0);
 
@@ -26,6 +27,8 @@ const SettingPage = () => {
 			// 	return <BoothLocationSettingPage />;
 			case 0:
 				return <BoothLocationSettingPage />;
+			case 1:
+				return <MegaphoneSettingPage />;
 			default:
 				return <div>문제 발생, 운영자에 문의 바랍니다</div>;
 		}

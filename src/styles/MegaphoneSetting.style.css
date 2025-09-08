@@ -1,0 +1,47 @@
+/* InputWithButton.css */
+.input-container {
+  display: flex;
+  justify-content: center; /* 가로 중앙 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+  width: 100%;
+  height: 300px; /* 화면 전체 높이 사용 */
+}
+
+.input-wrapper {
+  position: relative; /* 버튼의 위치 기준점 */
+  width: 500px;
+  height: 50px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding-right: 80px; /* 버튼 공간 확보 */
+}
+
+.text-input {
+  width: 100%;
+  height: 100%;
+  padding: 10px 15px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  border-radius: 8px;
+  box-sizing: border-box; /* 패딩이 너비에 포함되도록 설정 */
+}
+
+.submit-button {
+  position: absolute; /* .input-wrapper를 기준으로 위치 지정 */
+  bottom: 0px; /* 하단에 배치 */
+  right: 0px; /* 우측에 배치 */
+  height: 100%;
+  width: 80px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
